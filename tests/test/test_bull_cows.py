@@ -69,5 +69,5 @@ class TestCaseBullCows(TestCase):
         """
         from bull_cows import main
 
-        mock_raw_input.return_value = '1234'
+        mock_raw_input.side_effect = ['xxx', '1234']
         self.assertEqual(main(puzzle='1234'), None)
