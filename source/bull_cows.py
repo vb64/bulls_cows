@@ -75,11 +75,11 @@ class BullCows(object):  # pylint: disable=too-few-public-methods
         return (cows, bulls)
 
 
-def main():
+def main(puzzle=None):
     """
     entry point
     """
-    quest = BullCows()
+    quest = BullCows(puzzle=puzzle)
     cows, bulls = None, None
 
     while bulls != PUZZLE_LENGTH:
