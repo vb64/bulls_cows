@@ -1,9 +1,6 @@
-# https://cloud.google.com/sdk/
-# gcloud components install app-engine-python
-# Start -> Control Panel -> User Accounts -> Change environment variables
-# APP_ENGINE_DIR = C:\Users\vit\AppData\Local\Google\Cloud SDK\google-cloud-sdk\platform\google_appengine
 mock
 flake8
 pylint
 coverage
 tester_coverage
+coveralls
