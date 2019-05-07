@@ -60,16 +60,13 @@ class BullCows(object):  # pylint: disable=too-few-public-methods
 
     def check(self, answer):
         """
-        check answer string
-        if answer invalid, return (None, error_description)
-        if answer valid, return (cows_number, bulls_number)
+        check answer string for cows and bulls
         """
         if not is_valid(answer):
             return (None, 'need {} different digits!'.format(PUZZLE_LENGTH))
 
         cows, bulls = 0, 0
         answer_pos = 0
-
         for digit in answer:
             if digit in self.puzzle:
                 puzzle_pos = self.puzzle.index(digit)
