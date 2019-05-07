@@ -65,17 +65,15 @@ class BullCows(object):  # pylint: disable=too-few-public-methods
         if not is_valid(answer):
             return (None, 'need {} different digits!'.format(PUZZLE_LENGTH))
 
-        cows, bulls = 0, 0
-        answer_pos = 0
+        position, cows, bulls = 0, 0, 0
         for digit in answer:
             if digit in self.puzzle:
-                puzzle_pos = self.puzzle.index(digit)
-                if answer_pos == puzzle_pos:
+                if position == self.puzzle.index(digit):
                     bulls += 1
                 else:
                     cows += 1
 
-            answer_pos += 1
+            position += 1
 
         return (cows, bulls)
 
