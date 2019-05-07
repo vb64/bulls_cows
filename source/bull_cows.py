@@ -30,6 +30,24 @@ def is_unique_chars(text):
     return True
 
 
+def is_valid(text):
+    """
+    return True, if user input follow formal criteria
+    """
+    if len(text) != PUZZLE_LENGTH:
+        return False
+
+    try:
+        int(text)
+    except ValueError:
+        return False
+
+    if not is_unique_chars(text):
+        return False
+
+    return True
+
+
 class BullCows(object):  # pylint: disable=too-few-public-methods
     """
     Bull&Cows quest
@@ -46,18 +64,8 @@ class BullCows(object):  # pylint: disable=too-few-public-methods
         if answer invalid, return (None, error_description)
         if answer valid, return (cows_number, bulls_number)
         """
-        not_valid = (None, 'need {} different digits!'.format(PUZZLE_LENGTH))
-
-        if len(answer) != PUZZLE_LENGTH:
-            return not_valid
-
-        try:
-            int(answer)
-        except ValueError:
-            return not_valid
-
-        if not is_unique_chars(answer):
-            return not_valid
+        if not is_valid(answer):
+            return (None, 'need {} different digits!'.format(PUZZLE_LENGTH))
 
         cows, bulls = 0, 0
         answer_pos = 0
