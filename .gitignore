@@ -5,5 +5,5 @@
 *.sqlite3
 .coverage
 htmlcov/*
-venv/*
+venv*
 source/libs/*
