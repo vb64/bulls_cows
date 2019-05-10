@@ -1,6 +1,8 @@
 """
 Bull&Cows game
 """
+from __future__ import print_function
+import sys
 import random
 
 PUZZLE_LENGTH = 4
@@ -63,8 +65,9 @@ class BullCows(object):  # pylint: disable=too-few-public-methods
         check answer string for cows and bulls
         """
         if not is_valid(answer):
-            return (None, 'need {} different digits!'.format(PUZZLE_LENGTH))
+            return (None, None)
 
+        self.try_count += 1
         position, cows, bulls = 0, 0, 0
         for digit in answer:
             if digit in self.puzzle:
@@ -78,23 +81,25 @@ class BullCows(object):  # pylint: disable=too-few-public-methods
         return (cows, bulls)
 
 
-def main(puzzle=None):
+def main(argv, puzzle=None):
     """
     entry point
     """
     quest = BullCows(puzzle=puzzle)
     cows, bulls = None, None
+    if (len(argv) > 1) and (argv[1] == 'imcheater'):
+        print("my puzzle:", quest.puzzle)
 
     while bulls != PUZZLE_LENGTH:
         cows, bulls = quest.check(raw_input('enter 4 digits:'))
         if cows is None:
-            print bulls  # bulls contain error description
+            print('need {} different digits!'.format(PUZZLE_LENGTH))
         else:
-            print 'cows:', cows, 'bulls:', bulls
+            print('cows:', cows, 'bulls:', bulls)
 
-    print 'Done!'
-    print 'Quest solved with {} tries'.format(quest.try_count)
+    print('Done!')
+    print('Quest solved with {} tries'.format(quest.try_count))
 
 
 if __name__ == "__main__":  # pragma: no cover
-    main()
+    main(sys.argv)

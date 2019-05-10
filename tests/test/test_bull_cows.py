@@ -70,4 +70,7 @@ class TestCaseBullCows(TestCase):
         from bull_cows import main
 
         mock_raw_input.side_effect = ['xxx', '1234']
-        self.assertEqual(main(puzzle='1234'), None)
+        self.assertEqual(main(['first arg'], puzzle='1234'), None)
+
+        mock_raw_input.side_effect = ['xxx', '1234']
+        self.assertEqual(main(['first arg', 'imcheater'], puzzle='1234'), None)
