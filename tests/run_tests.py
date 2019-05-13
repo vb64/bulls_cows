@@ -10,7 +10,7 @@ from unittest import TestLoader, TextTestRunner
 def path_setup():
     cur_dir = os.getcwd()
     sys.path.insert(1, os.path.join(cur_dir, 'source'))
-    # sys.path.insert(1, os.path.join(cur_dir, 'source', 'libs'))
+    sys.path.insert(1, os.path.join(cur_dir, 'source', 'libs'))
 
 
 def main():

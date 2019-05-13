@@ -3,10 +3,14 @@ python:
   - "2.7"
 
 install:
+- apt-get install google-cloud-sdk
+- gcloud components install app-engine-python
 - pip install -r tests/requirements.txt
+- pip install -r source/libs/requirements.txt
 
 script:
 - python -m flake8 --max-line-length=120 source
+- python -m pylint --disable=relative-import source
 - python -m coverage run tests/run_tests.py
 - python -m coveralls
 - python -m coverage report --skip-covered

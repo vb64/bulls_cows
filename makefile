@@ -3,14 +3,18 @@
 
 ifeq ($(OS),Windows_NT)
 PYTHON = venv\Scripts\python.exe
+GCLOUD = $(LOCALAPPDATA)\Application Data\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd
 else
 PYTHON = ./venv/bin/python
+GCLOUD = gcloud
 endif
 
 SOURCE = source
 TEST = tests
+LIBDIR = $(SOURCE)/libs
 COVERAGE = $(PYTHON) -m coverage
 TESTS = $(TEST)/run_tests.py
+VERSION = 1
 
 all: tests
 
@@ -47,10 +51,14 @@ report:
 tests: flake8 lint coverage html
 	$(COVERAGE) report --skip-covered
 
+deploy: tests
+	$(GCLOUD) app deploy --quiet --project $(BULLS_COWS_GAE_ID) -v $(VERSION) $(SOURCE)/app.yaml $(SOURCE)/backend.yaml $(SOURCE)/cron.yaml $(SOURCE)/index.yaml $(SOURCE)/queue.yaml
+
 setup: setup_python setup_pip
 
 setup_pip:
 	$(PYTHON) -m pip install -r $(TEST)/requirements.txt
+	$(PYTHON) -m pip install -t $(LIBDIR) -r $(LIBDIR)/requirements.txt
 
 setup_python:
 	$(PYTHON_BIN) -m virtualenv ./venv
