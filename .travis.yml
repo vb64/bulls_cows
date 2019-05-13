@@ -2,6 +2,9 @@ language: python
 python:
   - "2.7"
 
+env:
+- APP_ENGINE_DIR=${HOME}/google-cloud-sdk/
+
 install:
 - pip install -r tests/requirements.txt
 - pip install -r source/libs/requirements.txt
