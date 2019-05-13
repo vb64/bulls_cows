@@ -10,6 +10,9 @@ install:
 - pip install -r source/libs/requirements.txt
 
 script:
+- find / -name google_appengine -type d
+- ls $HOME
+- echo $APP_ENGINE_DIR
 - python -m flake8 --max-line-length=120 source
 - python -m pylint --disable=relative-import source
 - python -m coverage run tests/run_tests.py
