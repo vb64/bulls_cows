@@ -3,7 +3,7 @@ python:
   - "2.7"
 
 env:
-- APP_ENGINE_DIR=${HOME}/google-cloud-sdk/
+- APP_ENGINE_DIR=$HOME/google-cloud-sdk/
 
 install:
 - pip install -r tests/requirements.txt
