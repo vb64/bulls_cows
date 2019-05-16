@@ -3,16 +3,11 @@ language: python
 python:
   - "2.7"
 
-env:
-- APP_ENGINE_DIR=$HOME/google-cloud-sdk/
-
 install:
 - pip install -r tests/requirements.txt
 - pip install -r source/libs/requirements.txt
 
 script:
-- sudo find / -name google_appengine -type d
-- echo $PYTHONPATH
 - python -m flake8 --max-line-length=120 source
 - python -m pylint --disable=relative-import source
 - python -m coverage run tests/run_tests.py

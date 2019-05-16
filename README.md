@@ -24,7 +24,6 @@ You need Google account and registration at [Google Cloud Platform](https://clou
 ```
 $ gcloud init
 $ gcloud components install app-engine-python
-$ export APP_ENGINE_DIR="path/to/google-cloud-sdk/platform/google_appengine"
 $ export BULLS_COWS_GAE_ID="Your-GAE-project-ID"
 $ git clone git@github.com:vb64/bulls_cows.git
 $ make setup PYTHON_BIN=path_to_python27_executable

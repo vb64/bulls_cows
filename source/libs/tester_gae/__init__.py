@@ -14,18 +14,8 @@ def path_setup():
     """
     appengine libraries path
     """
-    app_engine = os.environ["APP_ENGINE_DIR"]
-    if not app_engine:
-        raise Exception('Environment variable APP_ENGINE_DIR not set.')
-
-    sys.path.insert(1, app_engine)
-    sys.path.insert(1, os.path.join(app_engine, 'lib', 'yaml', 'lib'))
-
-    try:
-        import dev_appserver
-        dev_appserver.fix_sys_path()
-    except ImportError:
-        pass
+    import dev_appserver
+    dev_appserver.fix_sys_path()
 
 
 path_setup()
