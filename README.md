@@ -29,7 +29,8 @@ $ git clone git@github.com:vb64/bulls_cows.git
 $ make setup PYTHON_BIN=path_to_python27_executable
 $ make deploy
 ```
-Then visit URL https://Your-GAE-project-ID.appspot.com/ You should see something like this:
+Visit the URL https://Your-GAE-project-ID.appspot.com You should see something like this:
 ```
 Yandex Alice Bulls&Cows game lives here
 ```
+Then, you need Yandex account and registration at [Yandex.Dialogs](https://dialogs.yandex.ru).
