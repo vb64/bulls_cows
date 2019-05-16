@@ -1,8 +1,6 @@
 """
 Module for GAE specific test stuff
 """
-import os
-import sys
 import unittest
 
 
