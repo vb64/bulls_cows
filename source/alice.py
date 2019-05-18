@@ -2,6 +2,9 @@
 """
 Yandex.Alice skill
 """
+from models import Session
+
+
 HELP_COMMANDS = ["помощь", "что ты умеешь"]
 
 HELP_MESSAGE = ''.join((
@@ -79,6 +82,14 @@ def new_session(req, answer):
         # handle on start commands
         if command in HELP_COMMANDS:
             prefix = HELP_MESSAGE
+
+    session_id = req['session']['session_id']
+    session = Session.get_by_id(session_id)
+    if not session:
+        session = Session(id=session_id)
+
+    session.attempts_count = 0
+    session.put()
 
     return prompt(req, answer, prefix + START_MESSAGE)
 
