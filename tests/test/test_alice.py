@@ -32,6 +32,7 @@ class TestNewSession(TestAlice):
         self.assertTrue(alice.contain(self.start_message))
         self.assertTrue(alice.contain(self.prompt_message))
         self.assertFalse(alice.contain(self.help_message))
+        self.assertEqual(len(alice.buttons), 2)
 
     def test_command(self):
         """
@@ -40,11 +41,13 @@ class TestNewSession(TestAlice):
         alice = self.skill.new_session('1234567890', [Interface.Screen], command='xxx')
         self.assertTrue(alice.contain('xxx'))
         self.assertFalse(alice.contain(self.help_message))
+        self.assertEqual(len(alice.buttons), 2)
 
         alice = self.skill.new_session('1234567891', [Interface.Screen], command="ПоМощь")
         self.assertTrue(alice.contain(self.help_message))
         self.assertTrue(alice.contain(self.start_message))
         self.assertTrue(alice.contain(self.prompt_message))
+        self.assertEqual(len(alice.buttons), 2)
 
     def test_ping(self):
         """
@@ -54,4 +57,14 @@ class TestNewSession(TestAlice):
         self.assertFalse(alice.contain(self.prompt_message))
         self.assertFalse(alice.contain(self.start_message))
         self.assertTrue(alice.contain('pong'))
+        self.assertEqual(len(alice.buttons), 0)
+
+    def test_no_screen(self):
+        """
+        no screen device
+        """
+        alice = self.skill.new_session('1234567890', [])
+        self.assertTrue(alice.contain(self.prompt_message))
+        self.assertFalse(alice.contain(self.help_message))
+        self.assertEqual(len(alice.buttons), 0)
         # print alice.dump().decode('utf-8')

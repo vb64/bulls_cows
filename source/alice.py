@@ -39,13 +39,35 @@ def normalize(text):
     return ' '.join(text.lower().split())
 
 
+def prompt(req, answer, prefix):
+    """
+    return prompt for Alice user
+    """
+    answer['text'] = prefix + PROMPT_MESSAGE
+    if "screen" in req["meta"]["interfaces"]:
+        answer['buttons'] = [
+          {
+            "title": "Сдаюсь",
+            "hide": True,
+            "payload": {"surrender": True},
+          },
+          {
+            "title": "Помощь",
+            "hide": False,
+            "payload": {"help": True},
+          },
+        ]
+
+    return answer
+
+
 def new_session(req, answer):
     """
     alice user start new session
     """
     # get optional command for new session
     command = normalize(req['request'].get('command', ''))
-    answer['text'] = ""
+    prefix = ""
 
     if command in ["ping"]:
         # Alice check for your skill availability
@@ -56,10 +78,9 @@ def new_session(req, answer):
     if command:
         # handle on start commands
         if command in HELP_COMMANDS:
-            answer['text'] = HELP_MESSAGE
+            prefix = HELP_MESSAGE
 
-    answer['text'] += START_MESSAGE + PROMPT_MESSAGE
-    return answer
+    return prompt(req, answer, prefix + START_MESSAGE)
 
 
 def dialog(req):
