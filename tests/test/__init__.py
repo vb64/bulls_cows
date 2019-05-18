@@ -22,19 +22,3 @@ class TestCase(TestFlask, TestGae, TestCoverage):
     def tearDown(self):
         TestGae.tearDown(self)
         TestCoverage.tearDown(self)
-
-    def execute_backend_tasks(self, queue_name='default'):
-        """
-        run all tasks for given GAE taskqueue
-        """
-        tasks = self.gae_tasks(queue_name=queue_name, flush_queue=True)
-        for task in tasks:
-            # print "#->", task['method'], task['url'], task['body']
-            if task['method'] == 'GET':
-                response = self.client.get(task['url'])
-            elif task['method'] == 'POST':
-                response = self.client.post(task['url'], data=task['body'])
-            else:
-                response = 'Wrong taskqueue method: {}'.format(task['method']), 500, {}
-
-            self.assertEqual(response.status_code, 200)

@@ -22,11 +22,12 @@ test:
 	$(PYTHON) $(TESTS) test.$(T)
 
 flake8:
-	$(PYTHON) -m flake8 --max-line-length=110 --exclude=libs,sound.py $(SOURCE)
+	$(PYTHON) -m flake8 --max-line-length=110 --exclude=libs $(SOURCE)
 	$(PYTHON) -m flake8 --max-line-length=110 $(TEST)
 
 lint:
 	$(PYTHON) -m pylint --disable=relative-import $(SOURCE)
+	$(PYTHON) -m pylint $(TEST)/test
 
 verbose:
 	$(PYTHON) $(TESTS) verbose

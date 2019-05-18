@@ -38,4 +38,10 @@ class TestCaseUrl(TestCase):
 
         response = self.simple_view('cron_onetime')
         self.assertEqual(response.status_code, 200)
-        # self.private.history.dump()
+
+    def test_alice_webhook(self):
+        """
+        alice webhook must be POST
+        """
+        response = self.simple_view('alice_webhook', return_code=405)
+        self.assertEqual(response.status_code, 405)
