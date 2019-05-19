@@ -3,7 +3,7 @@ Yandex.Alice skill dialog functions
 """
 from bull_cows import BullCows
 from . import Button
-from .models import Session
+from .models import SessionYA as Session
 from .messages import (
   HELP_COMMANDS, CANCEL_COMMANDS, HELP, START, PROMPT, PROMPT_AGAIN, ERROR, AGAIN, STATS_CANCEL, BYE,
   LABEL_CANCEL, LABEL_HELP, LABEL_AGAIN, LABEL_EXIT,

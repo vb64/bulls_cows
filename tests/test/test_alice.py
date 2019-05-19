@@ -23,7 +23,7 @@ class TestAlice(TestCase):
         """
         new skill session
         """
-        from alice.models import Session
+        from alice.models import SessionYA as Session
         db_state = [
           (Session, count),
         ]
@@ -91,7 +91,7 @@ class TestNewSession(TestAlice):
         """
         duplicate session id
         """
-        from alice.models import Session
+        from alice.models import SessionYA as Session
 
         session_id = "2eac4854-fce721f3-b845abba-{}".format(self.skill.sessions["current_id"])
         session = Session(id=session_id)
