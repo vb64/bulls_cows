@@ -2,6 +2,7 @@
 """
 skill messages
 """
+# button labels
 LABEL_CANCEL = "Сдаюсь"
 LABEL_HELP = "Помощь"
 LABEL_AGAIN = "Да"

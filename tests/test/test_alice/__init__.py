@@ -13,6 +13,8 @@ class TestAlice(TestCase):
     start_message = "Я загадала число"
     help_message = "Этот навык умеет играть в логическую игру быки и коровы."
     prompt_message = "Продиктуй число из четырех разных цифр."
+    stat_fail_message = "попыток угадать число"
+    stat_fail_message = "Сыграем еще раз?"
 
     def setUp(self):
         super(TestAlice, self).setUp()
