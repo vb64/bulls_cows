@@ -5,7 +5,7 @@ import json
 from flask import request
 
 from wsgi import app
-from alice import dialog
+from alice.dialog import dialog
 
 
 @app.route('/cron/onetime/', methods=['GET', 'POST'])
