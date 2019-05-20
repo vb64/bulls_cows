@@ -172,11 +172,18 @@ def ask_again(req, answer, session, text):
     return prompt_again(req, answer, DONT_UNDERSTAND)
 
 
+def to_int(text):
+    """
+    extract digits from text
+    """
+    return ''.join([char for char in text if char.isdigit()])
+
+
 def handle_answer(req, answer, session, text):
     """
     handle user answer for puzzle
     """
-    cows, bulls = BullCows(puzzle=session.puzzle).check(text)
+    cows, bulls = BullCows(puzzle=session.puzzle).check(to_int(text))
 
     if cows is None:
         return prompt(req, answer, WRONG_ANSWER)

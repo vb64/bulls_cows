@@ -33,4 +33,9 @@ After successful deployment visit the URL https://Your-GAE-project-ID.appspot.co
 ```
 Yandex Alice Bulls&Cows game lives here
 ```
-Then, you need Yandex account and registration at [Yandex.Dialogs](https://dialogs.yandex.ru).
+Then, you need Yandex account and registration at [Yandex.Dialogs](https://dialogs.yandex.ru). Create [new Alice skill](https://dialogs.yandex.ru/developer/) and set `Webhook URL` field to
+
+```
+https://Your-GAE-project-ID.appspot.com/alice
+```
+Test your Alice skill at the 'Testing' tab.
