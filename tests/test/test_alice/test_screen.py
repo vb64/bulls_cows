@@ -1,4 +1,3 @@
-# coding: utf-8
 """
 make test T=test_alice.test_screen
 """
