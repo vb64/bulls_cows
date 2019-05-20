@@ -104,7 +104,7 @@ def finish(req, answer, session):
     """
     session.is_game_over = True
     session.put()
-    prefix = STATS_CANCEL.format(session.attempts_count, session.puzzle)
+    prefix = STATS_CANCEL.format(session.puzzle, session.attempts_count)
 
     return prompt_again(req, answer, prefix)
 
