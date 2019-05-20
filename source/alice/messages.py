@@ -10,7 +10,7 @@ LABEL_EXIT = "Нет"
 
 HELP_COMMANDS = ["помощь", "что ты умеешь"]
 CANCEL_COMMANDS = ["сдаюсь", "надоело", "не знаю"]
-AGAIN_COMMANDS = ["да", "окей", "сыграем", "давай"]
+AGAIN_COMMANDS = ["да", "окей", "сыграем", "давай", "еще"]
 EXIT_COMMANDS = ["нет", "не хочу", "не надо"]
 
 HELP = ''.join((
