@@ -2,5 +2,8 @@ mock
 flake8
 pylint
 coverage
-tester_coverage
 coveralls
+tester-gae
+tester_flask
+tester_alice_skill_flask
+tester_coverage

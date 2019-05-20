@@ -1,8 +1,8 @@
 """
 make test T=test_bull_cows
 """
-import mock
 import __builtin__
+import mock
 
 from . import TestCase
 
@@ -41,13 +41,13 @@ class TestCaseBullCows(TestCase):
 
         quest = BullCows(puzzle='1234')
 
-        is_valid, err_text = quest.check('123456')
+        is_valid, _err_text = quest.check('123456')
         self.assertEqual(is_valid, None)
 
-        is_valid, err_text = quest.check('xxxx')
+        is_valid, _err_text = quest.check('xxxx')
         self.assertEqual(is_valid, None)
 
-        is_valid, err_text = quest.check('1333')
+        is_valid, _err_text = quest.check('1333')
         self.assertEqual(is_valid, None)
 
         cows, bulls = quest.check('5678')

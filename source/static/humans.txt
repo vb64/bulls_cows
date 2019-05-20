@@ -1,0 +1,1 @@
+Yadex.Alice Bulls&Cows game is built by independent developer Vitaly Bogomolov. This game built with python/flask at GoogleAppengine platform. If you'd like to contact me, please mail to mail@vitaly-bogomolov.ru

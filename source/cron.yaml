@@ -1,0 +1,10 @@
+cron:
+
+- description: touch webhook
+  url: /cron/touch/
+  schedule: every 30 mins
+
+- description: patches
+  url: /cron/onetime/
+  schedule: 1 of jan 00:00
+  timezone: Europe/Moscow
