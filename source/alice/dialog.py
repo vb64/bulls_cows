@@ -27,7 +27,7 @@ def normalize(text):
     remove whitespaces, punctuation, cast to lower case
     """
     text = remove_chars(text, ',!?-')
-    return ' '.join(text.lower().split())
+    return ' '.join(text.lower().split()).encode('utf8')
 
 
 def prompt(req, answer, prefix):
