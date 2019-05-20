@@ -40,4 +40,5 @@ https://Your-GAE-project-ID.appspot.com/alice
 ```
 Test your Alice skill at the 'Testing' tab.
 
-For security purpose, you can uncomment next lines of code and set a correct ID for your Alice skill.
+For security purpose, you can uncomment next lines of code and set a correct ID for your Alice skill:
+https://github.com/vb64/bulls_cows/blob/bfcbfec8156e7e470062a94596a786ec89701cf1/source/views.py#L57
