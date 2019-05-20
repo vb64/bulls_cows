@@ -14,6 +14,16 @@ class TestNoScreen(TestAlice):
         self.alice = self.skill.new_session('1234567890', [])
         self.assertEqual(len(self.alice.buttons), 0)
 
+    def test_creator(self):
+        """
+        creator mention
+        """
+        self.alice.clear()
+        self.alice.send("Меня зовут Юлька Богомолова!")
+
+        self.assertTrue(self.alice.contain(self.creator_message))
+        self.assertEqual(len(self.alice.buttons), 0)
+
     def test_help(self):
         """
         help command

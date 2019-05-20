@@ -22,6 +22,7 @@ class TestAlice(TestCase):
     wrong_message = "Нужно ввести число"
     cows_message = "Коров: "
     win_message = "Задача решена"
+    creator_message = "которая научила меня этой игре"
 
     def setUp(self):
         super(TestAlice, self).setUp()
