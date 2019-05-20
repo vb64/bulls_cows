@@ -5,9 +5,9 @@ from bull_cows import BullCows
 from . import Button
 from .models import SessionYA as Session
 from .messages import (
-  HELP_COMMANDS, CANCEL_COMMANDS, HELP, START, PROMPT, PROMPT_AGAIN, ERROR, AGAIN, STATS_CANCEL, BYE,
+  HELP_COMMANDS, CANCEL_COMMANDS, AGAIN_COMMANDS, EXIT_COMMANDS,
+  HELP, START, PROMPT, PROMPT_AGAIN, ERROR, AGAIN, STATS_CANCEL, BYE, DONT_UNDERSTAND,
   LABEL_CANCEL, LABEL_HELP, LABEL_AGAIN, LABEL_EXIT,
-
 )
 
 
@@ -158,7 +158,20 @@ def new_session(req, answer):
     return new_game(req, answer, prefix, session)
 
 
-def dialog(req):
+def ask_again(req, answer, session, text):
+    """
+    user answer for new game request
+    """
+    if text in AGAIN_COMMANDS:
+        return new_game(req, answer, AGAIN, session)
+
+    if text in EXIT_COMMANDS:
+        return exit_session(answer, session)
+
+    return prompt_again(req, answer, DONT_UNDERSTAND)
+
+
+def dialog(req):  # pylint: disable=too-many-return-statements
     """
     alice request handler
     """
@@ -184,5 +197,8 @@ def dialog(req):
 
     if text in CANCEL_COMMANDS:
         return finish(req, answer, session)
+
+    if session.is_game_over:
+        return ask_again(req, answer, session, text)
 
     return answer

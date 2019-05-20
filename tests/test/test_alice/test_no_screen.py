@@ -34,5 +34,20 @@ class TestNoScreen(TestAlice):
         self.assertTrue(self.alice.contain(self.stat_fail_message))
         self.assertEqual(len(self.alice.buttons), 0)
 
-        # self.alice.send("да")
+        self.alice.clear()
+        self.alice.send("да")
+        self.assertTrue(self.alice.contain(self.again_message))
+        self.assertTrue(self.alice.contain(self.start_message))
+
+        self.alice.send("сдаюсь")
+
+        self.alice.clear()
+        self.alice.send("тру-ля-ля")
+        self.assertTrue(self.alice.contain(self.dont_understand_message))
+        self.assertTrue(self.alice.contain(self.stat_fail_message))
+
+        self.alice.clear()
+        self.alice.send("нет")
+        self.assertFalse(self.alice.contain(self.prompt_message))
+        self.assertTrue(self.alice.contain(self.bye_message))
         # print self.alice.dump().decode('utf-8')

@@ -17,6 +17,8 @@ class TestAlice(TestCase):
     stat_fail_message = "Сыграем еще раз?"
     bye_message = "Возвращайся,"
     err_message = "Ошибка. "
+    again_message = "Отлично, сыграем еще раз"
+    dont_understand_message = "Не понимаю ответ."
 
     def setUp(self):
         super(TestAlice, self).setUp()
