@@ -39,3 +39,5 @@ Then, you need Yandex account and registration at [Yandex.Dialogs](https://dialo
 https://Your-GAE-project-ID.appspot.com/alice
 ```
 Test your Alice skill at the 'Testing' tab.
+
+For security purpose, you can uncomment next lines of code and set a correct ID for your Alice skill.

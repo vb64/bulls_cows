@@ -26,7 +26,7 @@ class TestAlice(TestCase):
 
     def setUp(self):
         super(TestAlice, self).setUp()
-        self.skill = Skill(self.app, 'xxx', '/alice')
+        self.skill = Skill(self.app, 'Your_Alice_Skill_ID', '/alice')
 
     def db_sessions(self, count):
         """

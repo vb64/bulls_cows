@@ -53,6 +53,11 @@ def alice_webhook():
     """
     frontend
     """
+    # check for correct  skill ID
+    # if request.json['session']['skill_id'] != 'Your_Alice_Skill_ID':
+    #     from flask import abort
+    #     abort(404)
+
     return json.dumps(
       {
         "version": request.json['version'],
