@@ -43,7 +43,12 @@ class TestScreen(TestAlice):
         self.assertTrue(self.alice.contain(self.stat_fail_message))
         self.assertEqual(len(self.alice.buttons), 2)
 
-        self.alice.clear()
         self.alice.send_button(0)
+        self.alice.send_button(0)
+        self.alice.clear()
+        self.alice.send_button(1)
 
-        print self.alice.dump().decode('utf-8')
+        self.assertFalse(self.alice.contain(self.prompt_message))
+        self.assertTrue(self.alice.contain(self.bye_message))
+        self.assertEqual(len(self.alice.buttons), 0)
+        # print self.alice.dump().decode('utf-8')

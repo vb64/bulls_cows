@@ -15,6 +15,8 @@ class TestAlice(TestCase):
     prompt_message = "Продиктуй число из четырех разных цифр."
     stat_fail_message = "попыток угадать число"
     stat_fail_message = "Сыграем еще раз?"
+    bye_message = "Возвращайся,"
+    err_message = "Ошибка. "
 
     def setUp(self):
         super(TestAlice, self).setUp()
