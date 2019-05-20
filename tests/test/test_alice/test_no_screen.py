@@ -50,4 +50,28 @@ class TestNoScreen(TestAlice):
         self.alice.send("нет")
         self.assertFalse(self.alice.contain(self.prompt_message))
         self.assertTrue(self.alice.contain(self.bye_message))
+
+    def test_puzzle(self):
+        """
+        solve puzzle
+        """
+        self.db_sessions(1)
+
+        from alice.models import SessionYA as Session
+        session = Session.query().fetch(1)[0]
+
+        self.alice.clear()
+        self.alice.send("xxxx xxxx")
+        self.assertTrue(self.alice.contain(self.wrong_message))
+        self.assertTrue(self.alice.contain(self.prompt_message))
+
+        self.alice.clear()
+        self.alice.send("1234")
+        self.assertTrue(self.alice.contain(self.cows_message))
+        self.assertTrue(self.alice.contain(self.prompt_message))
+
+        self.alice.clear()
+        self.alice.send(session.puzzle)
+        self.assertTrue(self.alice.contain(self.win_message))
+        self.assertFalse(self.alice.contain(self.prompt_message))
         # print self.alice.dump().decode('utf-8')

@@ -1,12 +1,13 @@
 """
 Yandex.Alice skill dialog functions
 """
-from bull_cows import BullCows
+from bull_cows import BullCows, PUZZLE_LENGTH
 from . import Button
 from .models import SessionYA as Session
 from .messages import (
   HELP_COMMANDS, CANCEL_COMMANDS, AGAIN_COMMANDS, EXIT_COMMANDS,
-  HELP, START, PROMPT, PROMPT_AGAIN, ERROR, AGAIN, STATS_CANCEL, BYE, DONT_UNDERSTAND,
+  HELP, START, PROMPT, PROMPT_AGAIN, ERROR, AGAIN, STATS_CANCEL, BYE,
+  DONT_UNDERSTAND, VICTORY, WRONG_ANSWER, BULLS_COWS,
   LABEL_CANCEL, LABEL_HELP, LABEL_AGAIN, LABEL_EXIT,
 )
 
@@ -171,6 +172,27 @@ def ask_again(req, answer, session, text):
     return prompt_again(req, answer, DONT_UNDERSTAND)
 
 
+def handle_answer(req, answer, session, text):
+    """
+    handle user answer for puzzle
+    """
+    cows, bulls = BullCows(puzzle=session.puzzle).check(text)
+
+    if cows is None:
+        return prompt(req, answer, WRONG_ANSWER)
+
+    if bulls == PUZZLE_LENGTH:
+        session.is_game_over = True
+        session.put()
+        prefix = VICTORY.format(session.attempts_count)
+        return prompt_again(req, answer, prefix)
+
+    session.attempts_count += 1
+    session.put()
+
+    return prompt(req, answer, BULLS_COWS.format(cows, bulls))
+
+
 def dialog(req):  # pylint: disable=too-many-return-statements
     """
     alice request handler
@@ -201,4 +223,4 @@ def dialog(req):  # pylint: disable=too-many-return-statements
     if session.is_game_over:
         return ask_again(req, answer, session, text)
 
-    return answer
+    return handle_answer(req, answer, session, text)
