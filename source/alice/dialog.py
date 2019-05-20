@@ -54,7 +54,7 @@ def prompt(req, answer, prefix):
 
 def prompt_again(req, answer, prefix):
     """
-    return prompt for Alice user
+    return prompt for new game
     """
     answer['text'] = prefix + PROMPT_AGAIN
     if "screen" in req["meta"]["interfaces"]:
