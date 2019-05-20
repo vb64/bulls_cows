@@ -72,7 +72,7 @@ class TestNoScreen(TestAlice):
 
         self.alice.clear()
         self.alice.send("xxxx xxxx")
-        self.assertTrue(self.alice.contain(self.wrong_message))
+        self.assertTrue(self.alice.contain(self.dont_understand_message))
         self.assertTrue(self.alice.contain(self.prompt_message))
 
         self.alice.clear()

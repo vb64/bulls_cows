@@ -7,7 +7,7 @@ from .models import SessionYA as Session
 from .messages import (
   HELP_COMMANDS, CANCEL_COMMANDS, AGAIN_COMMANDS, EXIT_COMMANDS,
   HELP, START, PROMPT, PROMPT_AGAIN, ERROR, AGAIN, STATS_CANCEL, BYE,
-  DONT_UNDERSTAND, VICTORY, WRONG_ANSWER, BULLS_COWS, JULY, BOGOMOLOVA, CREATOR,
+  DONT_UNDERSTAND, VICTORY, BULLS_COWS, JULY, BOGOMOLOVA, CREATOR,
   LABEL_CANCEL, LABEL_HELP, LABEL_AGAIN, LABEL_EXIT,
 )
 
@@ -193,7 +193,7 @@ def handle_answer(req, answer, session, text):
     cows, bulls = BullCows(puzzle=session.puzzle).check(to_int(text))
 
     if cows is None:
-        return prompt(req, answer, WRONG_ANSWER)
+        return prompt(req, answer, DONT_UNDERSTAND)
 
     if bulls == PUZZLE_LENGTH:
         session.is_game_over = True

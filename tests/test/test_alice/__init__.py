@@ -19,7 +19,6 @@ class TestAlice(TestCase):
     err_message = "Ошибка. "
     again_message = "Отлично, сыграем еще раз"
     dont_understand_message = "Не понимаю ответ."
-    wrong_message = "Нужно ввести число"
     cows_message = "Коров: "
     win_message = "Задача решена"
     creator_message = "которая научила меня этой игре"
