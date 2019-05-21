@@ -19,7 +19,7 @@ Done!
 Quest solved with 2 tries
 ```
 
-## Yadex.Alice skill, that hosted as GoogleAppEngine StandardEnvironment app
+## Yandex.Alice skill, that hosted at GoogleAppEngine Standard Environment
 You need Google account and registration at [Google Cloud Platform](https://cloud.google.com/). Create [new python project](https://console.cloud.google.com/projectcreate) and save your new GAE project ID. [Download](https://cloud.google.com/sdk/) and install Cloud SDK, then:
 ```
 $ gcloud init
