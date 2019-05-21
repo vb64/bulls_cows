@@ -49,5 +49,5 @@ class TestScreen(TestAlice):
 
         self.assertFalse(self.alice.contain(self.prompt_message))
         self.assertTrue(self.alice.contain(self.bye_message))
-        self.assertEqual(len(self.alice.buttons), 0)
+        self.assertEqual(len(self.alice.buttons), 1)
         # print self.alice.dump().decode('utf-8')

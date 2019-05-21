@@ -6,9 +6,11 @@ from .models import SessionYA as Session
 from .messages import (
   HELP_COMMANDS, CANCEL_COMMANDS, AGAIN_COMMANDS, EXIT_COMMANDS,
   HELP, START, PROMPT, PROMPT_AGAIN, ERROR, AGAIN, STATS_CANCEL, BYE,
-  DONT_UNDERSTAND, VICTORY, BULLS_COWS, JULY, BOGOMOLOVA, CREATOR,
-  LABEL_CANCEL, LABEL_HELP, LABEL_AGAIN, LABEL_EXIT,
+  DONT_UNDERSTAND, VICTORY, BULLS_COWS, BULLS_COWS_TTS, JULY, BOGOMOLOVA, CREATOR,
+  LABEL_CANCEL, LABEL_HELP, LABEL_AGAIN, LABEL_EXIT, LABEL_LIKE,
 )
+
+LANDING = "https://dialogs.yandex.ru/store/skills/44617ce2-bychki-i-korovk"
 
 
 def remove_chars(text, chars):
@@ -29,11 +31,14 @@ def normalize(text):
     return ' '.join(text.lower().split()).encode('utf8')
 
 
-def prompt(req, answer, prefix):
+def prompt(req, answer, prefix, tts=None):
     """
     return prompt for Alice user
     """
     answer['text'] = prefix + PROMPT
+    if tts:
+        answer['tts'] = tts
+
     if "screen" in req["meta"]["interfaces"]:
         answer['buttons'] = [
           {
@@ -49,11 +54,14 @@ def prompt(req, answer, prefix):
     return answer
 
 
-def prompt_again(req, answer, prefix):
+def prompt_again(req, answer, prefix, tts=None):
     """
     return prompt for new game
     """
+    if tts:
+        answer['tts'] = tts
     answer['text'] = prefix + PROMPT_AGAIN
+
     if "screen" in req["meta"]["interfaces"]:
         answer['buttons'] = [
           {
@@ -76,8 +84,9 @@ def finish(req, answer, session):
     session.is_game_over = True
     session.put()
     prefix = STATS_CANCEL.format(session.puzzle, session.attempts_count)
+    tts = '<speaker audio="alice-sounds-game-loss-1.opus"> {}'.format(prefix)
 
-    return prompt_again(req, answer, prefix)
+    return prompt_again(req, answer, prefix, tts=tts)
 
 
 def exit_session(answer, session):
@@ -85,13 +94,20 @@ def exit_session(answer, session):
     Alice user exit session
     """
     session.key.delete()
-    answer['text'] = BYE
     answer['end_session'] = True
+    answer['text'] = BYE
+    answer['buttons'] = [
+      {
+        "title": LABEL_LIKE,
+        "url": LANDING,
+        "hide": False,
+      },
+    ]
 
     return answer
 
 
-def new_game(req, answer, prefix, session):
+def new_game(req, answer, prefix, session, with_cow=False):
     """
     start new game in session
     """
@@ -100,7 +116,11 @@ def new_game(req, answer, prefix, session):
     session.attempts_count = 0
     session.put()
 
-    return prompt(req, answer, prefix + START)
+    tts = None
+    if with_cow:
+        tts = '<speaker audio="alice-sounds-animals-cow-2.opus"> {}'.format(prefix + START)
+
+    return prompt(req, answer, prefix + START, tts=tts)
 
 
 def new_session(req, answer):
@@ -127,7 +147,7 @@ def new_session(req, answer):
     if not session:
         session = Session(id=session_id)
 
-    return new_game(req, answer, prefix, session)
+    return new_game(req, answer, prefix, session, with_cow=True)
 
 
 def ask_again(req, answer, session, text):
@@ -170,12 +190,14 @@ def handle_answer(req, answer, session, text):
         session.is_game_over = True
         session.put()
         prefix = VICTORY.format(session.attempts_count)
-        return prompt_again(req, answer, prefix)
+        tts = '<speaker audio="alice-sounds-game-win-1.opus"> {}'.format(prefix)
+        return prompt_again(req, answer, prefix, tts=tts)
 
     session.attempts_count += 1
     session.put()
+    tts = BULLS_COWS_TTS.format(cows, bulls)
 
-    return prompt(req, answer, BULLS_COWS.format(cows, bulls))
+    return prompt(req, answer, BULLS_COWS.format(cows, bulls), tts=tts)
 
 
 def dialog(req):  # pylint: disable=too-many-return-statements
@@ -195,12 +217,16 @@ def dialog(req):  # pylint: disable=too-many-return-statements
         answer['end_session'] = True
         return answer
 
-    text = normalize(req['request']['original_utterance'])
+    text = normalize(req['request'].get('command', ''))
+    if not text:
+        text = normalize(req['request']['original_utterance'])
+
     if text in HELP_COMMANDS:
         return prompt(req, answer, HELP)
 
     if july_mention(text):
-        return prompt(req, answer, CREATOR)
+        tts = '<speaker audio="alice-sounds-game-powerup-2.opus"> {}'.format(CREATOR)
+        return prompt(req, answer, CREATOR, tts=tts)
 
     if text in CANCEL_COMMANDS:
         return finish(req, answer, session)
