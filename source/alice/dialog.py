@@ -2,7 +2,6 @@
 Yandex.Alice skill dialog functions
 """
 from bull_cows import BullCows, PUZZLE_LENGTH
-from . import Button
 from .models import SessionYA as Session
 from .messages import (
   HELP_COMMANDS, CANCEL_COMMANDS, AGAIN_COMMANDS, EXIT_COMMANDS,
@@ -40,12 +39,10 @@ def prompt(req, answer, prefix):
           {
             "title": LABEL_CANCEL,
             "hide": True,
-            "payload": {Button.CANCEL: True},
           },
           {
             "title": LABEL_HELP,
             "hide": False,
-            "payload": {Button.HELP: True},
           },
         ]
 
@@ -62,38 +59,12 @@ def prompt_again(req, answer, prefix):
           {
             "title": LABEL_AGAIN,
             "hide": True,
-            "payload": {Button.AGAIN: True},
           },
           {
             "title": LABEL_EXIT,
             "hide": True,
-            "payload": {Button.EXIT: True},
           },
         ]
-
-    return answer
-
-
-def handle_button(req, answer, session):
-    """
-    button pressed
-    """
-    payload = req['request']['payload']
-
-    if Button.HELP in payload:
-        return prompt(req, answer, HELP)
-
-    if Button.CANCEL in payload:
-        return finish(req, answer, session)
-
-    if Button.EXIT in payload:
-        return exit_session(answer, session)
-
-    if Button.AGAIN in payload:
-        return new_game(req, answer, AGAIN, session)
-
-    answer['text'] = ERROR
-    answer['end_session'] = True
 
     return answer
 
@@ -223,9 +194,6 @@ def dialog(req):  # pylint: disable=too-many-return-statements
         answer['text'] = ERROR
         answer['end_session'] = True
         return answer
-
-    if req['request']['type'] == 'ButtonPressed':
-        return handle_button(req, answer, session)
 
     text = normalize(req['request']['original_utterance'])
     if text in HELP_COMMANDS:
