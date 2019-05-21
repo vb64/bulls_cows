@@ -41,3 +41,31 @@ class TestDialog(TestAlice):
         answer = dialog(req)
         self.assertEqual(answer['end_session'], True)
         self.assertIn(self.err_message, answer['text'])
+
+    def test_command(self):
+        """
+        original_utterance and command
+        """
+        from alice.dialog import dialog
+        from alice.models import SessionYA as Session
+
+        self.skill.new_session('1234567890', [])
+        self.db_sessions(1)
+        session = Session.query().fetch(1)[0]
+
+        req = {
+          'session': {
+            'new': False,
+            'session_id': session.key.id(),
+          },
+          'request': {
+            'original_utterance': 'xxxx yyyy',
+            'command': 'yyy xxx',
+          },
+          'meta': {
+            'interfaces': [],
+          },
+        }
+
+        answer = dialog(req)
+        self.assertEqual(answer['end_session'], False)
