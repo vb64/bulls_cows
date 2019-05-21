@@ -6,7 +6,7 @@ from .models import SessionYA as Session
 from .messages import (
   HELP_COMMANDS, CANCEL_COMMANDS, AGAIN_COMMANDS, EXIT_COMMANDS,
   HELP, START, PROMPT, PROMPT_AGAIN, ERROR, AGAIN, STATS_CANCEL, BYE,
-  DONT_UNDERSTAND, VICTORY, BULLS_COWS, JULY, BOGOMOLOVA, CREATOR,
+  DONT_UNDERSTAND, VICTORY, BULLS_COWS, BULLS_COWS_TTS, JULY, BOGOMOLOVA, CREATOR,
   LABEL_CANCEL, LABEL_HELP, LABEL_AGAIN, LABEL_EXIT, LABEL_LIKE,
 )
 
@@ -195,8 +195,9 @@ def handle_answer(req, answer, session, text):
 
     session.attempts_count += 1
     session.put()
+    tts = BULLS_COWS_TTS.format(cows, bulls)
 
-    return prompt(req, answer, BULLS_COWS.format(cows, bulls))
+    return prompt(req, answer, BULLS_COWS.format(cows, bulls), tts=tts)
 
 
 def dialog(req):  # pylint: disable=too-many-return-statements
@@ -216,7 +217,10 @@ def dialog(req):  # pylint: disable=too-many-return-statements
         answer['end_session'] = True
         return answer
 
-    text = normalize(req['request']['original_utterance'])
+    text = normalize(req['request'].get('command', ''))
+    if not text:
+        text = normalize(req['request']['original_utterance'])
+
     if text in HELP_COMMANDS:
         return prompt(req, answer, HELP)
 
