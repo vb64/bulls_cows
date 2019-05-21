@@ -26,16 +26,6 @@ class TestDialog(TestAlice):
         self.assertEqual(to_int('12 37.'), '1237')
         self.assertEqual(to_int('55,666'), '55666')
 
-    def test_handle_button(self):
-        """
-        handle_button
-        """
-        from alice.dialog import handle_button
-
-        answer = handle_button({'request': {'payload': {}}}, {}, None)
-        self.assertEqual(answer['end_session'], True)
-        self.assertIn(self.err_message, answer['text'])
-
     def test_dialog(self):
         """
         dialog
