@@ -7,6 +7,7 @@ LABEL_CANCEL = "Сдаюсь"
 LABEL_HELP = "Помощь"
 LABEL_AGAIN = "Да"
 LABEL_EXIT = "Нет"
+LABEL_LIKE = "Понравилось, лайк автору!"
 
 HELP_COMMANDS = ["помощь", "что ты умеешь"]
 CANCEL_COMMANDS = ["сдаюсь", "надоело", "не знаю"]

@@ -14,7 +14,7 @@ TEST = tests
 LIBDIR = $(SOURCE)/libs
 COVERAGE = $(PYTHON) -m coverage
 TESTS = $(TEST)/run_tests.py
-VERSION = 1
+VERSION = like-link
 
 all: tests
 
