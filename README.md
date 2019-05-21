@@ -8,7 +8,7 @@
 ## Local game
 ```
 $ git clone git@github.com:vb64/bulls_cows.git
-$ cd source
+$ cd bulls_cows/source
 $ python bull_cows.py imcheater
 my puzzle: 5091
 enter 4 digits: 0519
@@ -26,6 +26,7 @@ $ gcloud init
 $ gcloud components install app-engine-python
 $ export BULLS_COWS_GAE_ID="Your-GAE-project-ID"
 $ git clone git@github.com:vb64/bulls_cows.git
+$ cd bulls_cows
 $ make setup PYTHON_BIN=path_to_python27_executable
 $ make deploy
 ```
