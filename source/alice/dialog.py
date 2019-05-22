@@ -31,25 +31,24 @@ def normalize(text):
     return ' '.join(text.lower().split()).encode('utf8')
 
 
+def add_buttons(req, answer, buttons):
+    """
+    add buttons definition to answer, if screen present
+    """
+    if "screen" in req["meta"]["interfaces"]:
+        answer['buttons'] = [{"title": title, "hide": hide} for title, hide in buttons]
+
+    return answer
+
+
 def prompt(req, answer, prefix, tts=None):
     """
     return prompt for Alice user
     """
     answer['text'] = prefix + PROMPT
+    add_buttons(req, answer, [(LABEL_CANCEL, True), (LABEL_HELP, False)])
     if tts:
         answer['tts'] = tts
-
-    if "screen" in req["meta"]["interfaces"]:
-        answer['buttons'] = [
-          {
-            "title": LABEL_CANCEL,
-            "hide": True,
-          },
-          {
-            "title": LABEL_HELP,
-            "hide": False,
-          },
-        ]
 
     return answer
 
@@ -58,21 +57,10 @@ def prompt_again(req, answer, prefix, tts=None):
     """
     return prompt for new game
     """
+    answer['text'] = prefix + PROMPT_AGAIN
+    add_buttons(req, answer, [(LABEL_AGAIN, True), (LABEL_EXIT, True)])
     if tts:
         answer['tts'] = tts
-    answer['text'] = prefix + PROMPT_AGAIN
-
-    if "screen" in req["meta"]["interfaces"]:
-        answer['buttons'] = [
-          {
-            "title": LABEL_AGAIN,
-            "hide": True,
-          },
-          {
-            "title": LABEL_EXIT,
-            "hide": True,
-          },
-        ]
 
     return answer
 
