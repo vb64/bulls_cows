@@ -9,15 +9,6 @@ class TestDialog(TestAlice):
     """
     functions from alice.dialog module
     """
-    def test_july_mention(self):
-        """
-        july_mention
-        """
-        from alice.dialog import july_mention
-        self.assertTrue(july_mention("меня зовут юля богомолова."))
-        self.assertTrue(july_mention("привет юляка богомолова."))
-        self.assertFalse(july_mention("кто такая богомолова?"))
-
     def test_to_int(self):
         """
         to_int
