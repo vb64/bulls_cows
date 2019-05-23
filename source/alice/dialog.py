@@ -3,10 +3,11 @@ Yandex.Alice skill dialog functions
 """
 from bull_cows import BullCows, PUZZLE_LENGTH
 from .models import SessionYA as Session
+from .mentions import reply as reply_mention
 from .messages import (
   HELP_COMMANDS, CANCEL_COMMANDS, AGAIN_COMMANDS, EXIT_COMMANDS,
   HELP, START, PROMPT, PROMPT_AGAIN, ERROR, AGAIN, STATS_CANCEL, BYE,
-  DONT_UNDERSTAND, VICTORY, BULLS_COWS, BULLS_COWS_TTS, JULY, BOGOMOLOVA, CREATOR,
+  DONT_UNDERSTAND, VICTORY, BULLS_COWS, BULLS_COWS_TTS,
   LABEL_CANCEL, LABEL_HELP, LABEL_AGAIN, LABEL_EXIT, LABEL_LIKE,
 )
 
@@ -158,13 +159,6 @@ def to_int(text):
     return ''.join([char for char in text if char.isdigit()])
 
 
-def july_mention(text):
-    """
-    return True, if text contain mention of game creator
-    """
-    return any([True for name in JULY if name in text]) and (BOGOMOLOVA in text)
-
-
 def handle_answer(req, answer, session, text):
     """
     handle user answer for puzzle
@@ -212,9 +206,10 @@ def dialog(req):  # pylint: disable=too-many-return-statements
     if text in HELP_COMMANDS:
         return prompt(req, answer, HELP)
 
-    if july_mention(text):
-        tts = '<speaker audio="alice-sounds-game-powerup-2.opus"> {}'.format(CREATOR)
-        return prompt(req, answer, CREATOR, tts=tts)
+    reply, sound = reply_mention(text)
+    if reply:
+        tts = '<speaker audio="{}"> {}'.format(sound, reply)
+        return prompt(req, answer, reply + '\n', tts=tts)
 
     if text in CANCEL_COMMANDS:
         return finish(req, answer, session)
