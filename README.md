@@ -42,3 +42,6 @@ https://Your-GAE-project-ID.appspot.com/alice
 Test your Alice skill at the 'Testing' tab.
 
 For security purpose, you can [uncomment next lines](https://github.com/vb64/bulls_cows/blob/bfcbfec8156e7e470062a94596a786ec89701cf1/source/views.py#L57) of code and set a correct ID for your Alice skill.
+
+## Live version
+The live version of this code is available as [Yandex.Alice skill](https://alice.ya.ru/s/59166701-101b-44b3-b7e3-b7e078036890).
