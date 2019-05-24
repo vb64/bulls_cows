@@ -4,8 +4,8 @@ Yandex.Alice skill dialog functions
 from bull_cows import BullCows, PUZZLE_LENGTH
 from num2words import int2words, int2female
 from .models import SessionYA as Session
-from .mentions import reply as reply_mention
 from .messages import (
+  reply as reply_mention,
   HELP_COMMANDS, CANCEL_COMMANDS, AGAIN_COMMANDS, EXIT_COMMANDS,
   HELP, START, PROMPT, PROMPT_AGAIN, ERROR, AGAIN, STATS_CANCEL, BYE,
   DONT_UNDERSTAND, VICTORY, BULLS_COWS, TTS_COWS, TTS_BULLS,
@@ -190,7 +190,7 @@ def handle_answer(req, answer, session, text):
     return prompt(req, answer, BULLS_COWS.format(cows, bulls), tts=tts)
 
 
-def dialog(req):  # pylint: disable=too-many-return-statements
+def dialog(req):
     """
     alice request handler
     """
@@ -211,18 +211,15 @@ def dialog(req):  # pylint: disable=too-many-return-statements
     if not text:
         text = normalize(req['request']['original_utterance'])
 
-    if text in HELP_COMMANDS:
-        return prompt(req, answer, HELP)
+    if session.is_game_over:
+        return ask_again(req, answer, session, text)
+
+    if text in CANCEL_COMMANDS:
+        return finish(req, answer, session)
 
     reply, sound = reply_mention(text)
     if reply:
         tts = '<speaker audio="{}"> {}'.format(sound, reply)
         return prompt(req, answer, reply + '\n', tts=tts)
-
-    if text in CANCEL_COMMANDS:
-        return finish(req, answer, session)
-
-    if session.is_game_over:
-        return ask_again(req, answer, session, text)
 
     return handle_answer(req, answer, session, text)
