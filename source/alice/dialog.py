@@ -2,7 +2,7 @@
 Yandex.Alice skill dialog functions
 """
 from bull_cows import BullCows, PUZZLE_LENGTH
-from num2words import int2words
+from num2words import int2words, int2female
 from .models import SessionYA as Session
 from .mentions import reply as reply_mention
 from .messages import (
@@ -74,7 +74,9 @@ def finish(req, answer, session):
     session.is_game_over = True
     session.put()
     prefix = STATS_CANCEL.format(session.puzzle, session.attempts_count)
-    tts = '<speaker audio="alice-sounds-game-loss-1.opus"> {}'.format(prefix)
+    tts = '<speaker audio="alice-sounds-game-loss-1.opus"> {}'.format(
+      STATS_CANCEL.format(session.puzzle, int2female(session.attempts_count))
+    )
 
     return prompt_again(req, answer, prefix, tts=tts)
 
@@ -173,7 +175,9 @@ def handle_answer(req, answer, session, text):
         session.is_game_over = True
         session.put()
         prefix = VICTORY.format(session.attempts_count)
-        tts = '<speaker audio="alice-sounds-game-win-1.opus"> {}'.format(prefix)
+        tts = '<speaker audio="alice-sounds-game-win-1.opus"> {}'.format(
+          VICTORY.format(int2female(session.attempts_count))
+        )
         return prompt_again(req, answer, prefix, tts=tts)
 
     session.attempts_count += 1

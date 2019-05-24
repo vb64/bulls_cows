@@ -66,7 +66,7 @@ def thousand(rest, sex):
     return plural, name
 
 
-def int2words(num, main_units=((u'', u'', u''), 'm'), zero_not=False):
+def int2words(num, main_units=(('', '', ''), 'm'), zero_not=False):
     """
     http://ru.wikipedia.org/wiki/Gettext#.D0.9C.D0.BD.D0.BE.D0.B6.D0.B5.D1.81.
     D1.82.D0.B2.D0.B5.D0.BD.D0.BD.D1.8B.D0.B5_.D1.87.D0.B8.D1.81.D0.BB.D0.B0_2
@@ -93,3 +93,10 @@ def int2words(num, main_units=((u'', u'', u''), 'm'), zero_not=False):
     name.reverse()
 
     return ' '.join(name).strip()
+
+
+def int2female(number):
+    """
+    translate number to female words
+    """
+    return int2words(number, (('', '', ''), "f"))
