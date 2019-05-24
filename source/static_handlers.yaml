@@ -14,8 +14,3 @@ handlers:
   static_files: static/humans.txt
   upload: static/humans\.txt
   mime_type: text/plain
-
-#- url: /yandex_xxxxxxxx\.html
-#  static_files: static/yandex_xxxxxxxx.html
-#  upload: static/yandex_check\.html
-#  mime_type: text/html
