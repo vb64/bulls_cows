@@ -2,12 +2,13 @@
 Yandex.Alice skill dialog functions
 """
 from bull_cows import BullCows, PUZZLE_LENGTH
+from num2words import int2words
 from .models import SessionYA as Session
 from .mentions import reply as reply_mention
 from .messages import (
   HELP_COMMANDS, CANCEL_COMMANDS, AGAIN_COMMANDS, EXIT_COMMANDS,
   HELP, START, PROMPT, PROMPT_AGAIN, ERROR, AGAIN, STATS_CANCEL, BYE,
-  DONT_UNDERSTAND, VICTORY, BULLS_COWS, BULLS_COWS_TTS,
+  DONT_UNDERSTAND, VICTORY, BULLS_COWS, TTS_COWS, TTS_BULLS,
   LABEL_CANCEL, LABEL_HELP, LABEL_AGAIN, LABEL_EXIT, LABEL_LIKE,
 )
 
@@ -177,7 +178,10 @@ def handle_answer(req, answer, session, text):
 
     session.attempts_count += 1
     session.put()
-    tts = BULLS_COWS_TTS.format(cows, bulls)
+    tts = "{} - {}".format(
+      int2words(cows, TTS_COWS, zero_not=True),
+      int2words(bulls, TTS_BULLS, zero_not=True)
+    )
 
     return prompt(req, answer, BULLS_COWS.format(cows, bulls), tts=tts)
 
