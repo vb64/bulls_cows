@@ -12,13 +12,13 @@ def make_puzzle():
     """
     return random string from 4 different digits
     """
-    puzzle = ''
+    puzzle = []
     while len(puzzle) < PUZZLE_LENGTH:
-        digit = str(int(random.random() * 10))
+        digit = str(random.choice(range(10)))
         if digit not in puzzle:  # pragma: no cover
-            puzzle = puzzle + digit
+            puzzle.append(digit)
 
-    return puzzle
+    return ''.join(puzzle)
 
 
 def is_unique_chars(text):
