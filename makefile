@@ -14,7 +14,7 @@ TEST = tests
 LIBDIR = $(SOURCE)/libs
 COVERAGE = $(PYTHON) -m coverage
 TESTS = $(TEST)/run_tests.py
-VERSION = mentions
+VERSION = num2word
 
 all: tests
 
