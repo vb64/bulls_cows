@@ -11,9 +11,9 @@ class TestMentions(TestAlice):
     """
     def test_reply(self):
         """
-        alice.mentions.reply
+        alice.messages.reply
         """
-        from alice.mentions import reply
+        from alice.messages import reply
 
         relpy, _sound = reply("меня зовут юля богомолова.")
         self.assertTrue(relpy)
