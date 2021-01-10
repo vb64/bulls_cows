@@ -1,6 +1,7 @@
 """
 App endpoint handlers
 """
+import logging
 import json
 from flask import request
 
@@ -57,6 +58,7 @@ def alice_webhook():
     # if request.json['session']['skill_id'] != 'Your_Alice_Skill_ID':
     #     from flask import abort
     #     abort(404)
+    logging.info('Request: %r', request.json)
 
     return json.dumps(
       {
