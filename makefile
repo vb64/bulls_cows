@@ -1,65 +1,60 @@
-.PHONY: all setup flake8 lint
+.PHONY: all setup run
 # make tests >debug.log 2>&1
-
 ifeq ($(OS),Windows_NT)
-PYTHON = venv\Scripts\python.exe
-GCLOUD = $(LOCALAPPDATA)\Application Data\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd
+GCLOUD = $(LOCALAPPDATA)\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd
+PYTHON = venv/Scripts/python.exe
 else
-PYTHON = ./venv/bin/python
 GCLOUD = gcloud
+PYTHON = ./venv/bin/python
 endif
 
 SOURCE = source
-TEST = tests
-LIBDIR = $(SOURCE)/libs
-COVERAGE = $(PYTHON) -m coverage
-TESTS = $(TEST)/run_tests.py
-VERSION = version-error
+TESTS = tests
+DFLT = $(SOURCE)/default
+PIP = $(PYTHON) -m pip install
+DEPLOY = $(GCLOUD) app deploy --project
+FLAKE8 = $(PYTHON) -m flake8
+LINT = $(PYTHON) -m pylint
+PEP257 = $(PYTHON) -m pep257
 
-all: tests
+PRJ = bulls-cows-240515
+VERSION = py3
 
-test:
-	$(PYTHON) $(TESTS) test.$(T)
+all: run
+
+tests: flake8 pep257 lint
 
 flake8:
-	$(PYTHON) -m flake8 --max-line-length=110 --exclude=libs $(SOURCE)
-	$(PYTHON) -m flake8 --max-line-length=110 $(TEST)
+	$(FLAKE8) $(DFLT)
+
+pep257:
+	$(PEP257) $(DFLT)
 
 lint:
-	$(PYTHON) -m pylint --disable=relative-import $(SOURCE)
-	$(PYTHON) -m pylint $(TEST)/test
+	$(LINT) $(DFLT)
 
-verbose:
-	$(PYTHON) $(TESTS) verbose
+run:
+	$(PYTHON) $(DFLT)/main.py
 
-coverage:
-	$(COVERAGE) run $(TESTS)
+deploy:
+	$(DEPLOY) $(PRJ) --version $(VERSION) $(DFLT)/app.yaml
 
-html:
-	$(COVERAGE) html --skip-covered
+cron:
+	$(DEPLOY) $(PRJ) $(SOURCE)/cron.yaml
 
-increment: clean flake8 lint
-	$(PYTHON) $(TESTS) increment
-	$(PYTHON) $(TESTS) combine
-	$(COVERAGE) html --skip-covered
-	$(COVERAGE) report --skip-covered
+index:
+	$(GCLOUD) datastore indexes cleanup --project $(PRJ) $(SOURCE)/index.yaml
 
-report:
-	$(PYTHON) $(TESTS) combine
-	$(COVERAGE) html --skip-covered
-	$(COVERAGE) report --skip-covered
-
-tests: flake8 lint coverage html
-	$(COVERAGE) report --skip-covered
-
-deploy: tests
-	$(GCLOUD) app deploy --quiet --project $(BULLS_COWS_GAE_ID) -v $(VERSION) $(SOURCE)/app.yaml $(SOURCE)/backend.yaml $(SOURCE)/cron.yaml $(SOURCE)/index.yaml $(SOURCE)/queue.yaml
+auth:
+	$(GCLOUD) auth application-default login
+	$(GCLOUD) auth application-default set-quota-project $(PRJ)
 
 setup: setup_python setup_pip
 
 setup_pip:
-	$(PYTHON) -m pip install -r $(TEST)/requirements.txt
-	$(PYTHON) -m pip install -t $(LIBDIR) -r $(LIBDIR)/requirements.txt
+	$(PIP) --upgrade pip
+	$(PIP) -r $(DFLT)/requirements.txt
+	$(PIP) -r $(TESTS)/requirements.txt
 
 setup_python:
-	$(PYTHON_BIN) -m virtualenv ./venv
+	$(PYTHON_BIN) -m venv ./venv
