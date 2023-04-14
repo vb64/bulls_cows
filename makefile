@@ -34,7 +34,7 @@ lint:
 	$(LINT) $(DFLT)
 
 run:
-	$(PYTHON) $(DFLT)/main.py
+	$(PYTHON) $(DFLT)/bull_cows.py imcheater
 
 deploy:
 	$(DEPLOY) $(PRJ) --version $(VERSION) $(DFLT)/app.yaml

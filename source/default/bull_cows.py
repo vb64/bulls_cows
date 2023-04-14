@@ -1,7 +1,4 @@
-"""
-Bull&Cows game
-"""
-from __future__ import print_function
+"""Bull&Cows game."""
 import sys
 import random
 
@@ -9,9 +6,7 @@ PUZZLE_LENGTH = 4
 
 
 def make_puzzle():
-    """
-    return random string from 4 different digits
-    """
+    """Return random string from 4 different digits."""
     puzzle = []
     while len(puzzle) < PUZZLE_LENGTH:
         digit = str(random.choice(range(10)))
@@ -22,9 +17,7 @@ def make_puzzle():
 
 
 def is_unique_chars(text):
-    """
-    return True, if text consist from unique chars
-    """
+    """Return True, if text consist from unique chars."""
     for i in range(len(text) - 1):
         if text[i] in text[i + 1:]:
             return False
@@ -33,9 +26,7 @@ def is_unique_chars(text):
 
 
 def is_valid(text):
-    """
-    return True, if user input follow formal criteria
-    """
+    """Return True, if user input follow formal criteria."""
     if len(text) != PUZZLE_LENGTH:
         return False
 
@@ -50,20 +41,18 @@ def is_valid(text):
     return True
 
 
-class BullCows(object):  # pylint: disable=too-few-public-methods
-    """
-    Bull&Cows quest
-    """
+class BullCows:
+    """Bull&Cows quest."""
+
     def __init__(self, puzzle=None):
+        """Can use predefined puzzle."""
         self.try_count = 0
         self.puzzle = puzzle
         if self.puzzle is None:
             self.puzzle = make_puzzle()
 
     def check(self, answer):
-        """
-        check answer string for cows and bulls
-        """
+        """Check answer string for cows and bulls."""
         if not is_valid(answer):
             return (None, None)
 
@@ -82,16 +71,14 @@ class BullCows(object):  # pylint: disable=too-few-public-methods
 
 
 def main(argv, puzzle=None):
-    """
-    entry point
-    """
+    """Standalone app."""
     quest = BullCows(puzzle=puzzle)
     cows, bulls = None, None
     if (len(argv) > 1) and (argv[1] == 'imcheater'):
         print("my puzzle:", quest.puzzle)
 
     while bulls != PUZZLE_LENGTH:
-        cows, bulls = quest.check(raw_input('enter 4 digits:'))
+        cows, bulls = quest.check(input('enter 4 digits:'))
         if cows is None:
             print('need {} different digits!'.format(PUZZLE_LENGTH))
         else:
