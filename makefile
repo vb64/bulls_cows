@@ -42,13 +42,6 @@ deploy:
 cron:
 	$(DEPLOY) $(PRJ) $(SOURCE)/cron.yaml
 
-index:
-	$(GCLOUD) datastore indexes cleanup --project $(PRJ) $(SOURCE)/index.yaml
-
-auth:
-	$(GCLOUD) auth application-default login
-	$(GCLOUD) auth application-default set-quota-project $(PRJ)
-
 setup: setup_python setup_pip
 
 setup_pip:
