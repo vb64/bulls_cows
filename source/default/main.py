@@ -1,59 +1,21 @@
-"""
-App endpoint handlers
-"""
+"""Default GAE service."""
 import logging
 import json
-from flask import request
-
-from wsgi import app
+from flask import Flask, request
 from alice.dialog import dialog
 
-
-@app.route('/cron/onetime/', methods=['GET', 'POST'])
-def cron_onetime():
-    """
-    for onetime tasks
-    """
-    return 'OK'
-
-
-@app.route('/cron/touch/', methods=['GET', 'POST'])
-def cron_touch():
-    """
-    regular cron tasks
-    """
-    return 'OK'
-
-
-@app.route('/_ah/warmup')
-def warmup():
-    """
-    warmup request
-    """
-    return 'OK'
-
-
-@app.route('/_ah/start')
-def backend_start():
-    """
-    backend start request
-    """
-    return 'OK'
+app = Flask(__name__)
 
 
 @app.route('/')
-def mainpage():
-    """
-    root page
-    """
+def main():
+    """Root page."""
     return "Yandex Alice Bulls&Cows game lives here"
 
 
 @app.route('/alice', methods=['POST'])
 def alice_webhook():
-    """
-    frontend
-    """
+    """Frontend."""
     # check for correct  skill ID
     # if request.json['session']['skill_id'] != 'Your_Alice_Skill_ID':
     #     from flask import abort
@@ -70,3 +32,7 @@ def alice_webhook():
       ensure_ascii=False,
       indent=2
     )
+
+
+if __name__ == '__main__':  # pragma: no cover
+    app.run(host='127.0.0.1', port=8080, debug=True)

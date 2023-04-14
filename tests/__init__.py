@@ -1,3 +1,1 @@
-"""
-Run tests stuff
-"""
+"""Run tests stuff."""

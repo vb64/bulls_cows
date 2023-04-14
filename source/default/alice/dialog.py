@@ -1,8 +1,6 @@
-"""
-Yandex.Alice skill dialog functions
-"""
-from bull_cows import BullCows, PUZZLE_LENGTH
-from num2words import int2words, int2female
+"""Yandex.Alice skill dialog functions."""
+from ..bull_cows import BullCows, PUZZLE_LENGTH
+from ..num2words import int2words, int2female
 from .models import SessionYA as Session
 from .messages import (
   reply as reply_mention,
@@ -16,9 +14,7 @@ LANDING = "https://dialogs.yandex.ru/store/skills/44617ce2-bychki-i-korovk"
 
 
 def remove_chars(text, chars):
-    """
-    remove chars from text
-    """
+    """Remove chars from text."""
     for char in chars:
         text = text.replace(char, '')
 
@@ -26,17 +22,13 @@ def remove_chars(text, chars):
 
 
 def normalize(text):
-    """
-    remove whitespaces, punctuation, cast to lower case
-    """
+    """Remove whitespaces, punctuation, cast to lower case."""
     text = remove_chars(text, ',!?-')
     return ' '.join(text.lower().split()).encode('utf8')
 
 
 def add_buttons(req, answer, buttons):
-    """
-    add buttons definition to answer, if screen present
-    """
+    """Add buttons definition to answer, if screen present."""
     if "screen" in req["meta"]["interfaces"]:
         answer['buttons'] = [{"title": title, "hide": hide} for title, hide in buttons]
 
@@ -44,9 +36,7 @@ def add_buttons(req, answer, buttons):
 
 
 def prompt(req, answer, prefix, tts=None):
-    """
-    return prompt for Alice user
-    """
+    """Return prompt for Alice user."""
     answer['text'] = prefix + PROMPT
     add_buttons(req, answer, [(LABEL_CANCEL, True), (LABEL_HELP, False)])
     if tts:
@@ -56,9 +46,7 @@ def prompt(req, answer, prefix, tts=None):
 
 
 def prompt_again(req, answer, prefix, tts=None):
-    """
-    return prompt for new game
-    """
+    """Return prompt for new game."""
     answer['text'] = prefix + PROMPT_AGAIN
     add_buttons(req, answer, [(LABEL_AGAIN, True), (LABEL_EXIT, True)])
     if tts:
@@ -68,9 +56,7 @@ def prompt_again(req, answer, prefix, tts=None):
 
 
 def finish(req, answer, session):
-    """
-    user cancel current game
-    """
+    """User cancel current game."""
     session.is_game_over = True
     session.put()
     prefix = STATS_CANCEL.format(session.puzzle, session.attempts_count)
@@ -82,9 +68,7 @@ def finish(req, answer, session):
 
 
 def exit_session(answer, session):
-    """
-    Alice user exit session
-    """
+    """Alice user exit session."""
     session.key.delete()
     answer['end_session'] = True
     answer['text'] = BYE
@@ -100,9 +84,7 @@ def exit_session(answer, session):
 
 
 def new_game(req, answer, prefix, session, with_cow=False):
-    """
-    start new game in session
-    """
+    """Start new game in session."""
     session.is_game_over = False
     session.puzzle = BullCows().puzzle
     session.attempts_count = 0
@@ -116,9 +98,7 @@ def new_game(req, answer, prefix, session, with_cow=False):
 
 
 def new_session(req, answer):
-    """
-    alice user start new session
-    """
+    """Alice user start new session."""
     # get optional command for new session
     command = normalize(req['request'].get('command', ''))
     prefix = ""
@@ -143,9 +123,7 @@ def new_session(req, answer):
 
 
 def ask_again(req, answer, session, text):
-    """
-    user answer for new game request
-    """
+    """User answer for new game request."""
     if text in AGAIN_COMMANDS:
         return new_game(req, answer, AGAIN, session)
 
@@ -156,16 +134,12 @@ def ask_again(req, answer, session, text):
 
 
 def to_int(text):
-    """
-    extract digits from text
-    """
+    """Extract digits from text."""
     return ''.join([char for char in text if char.isdigit()])
 
 
 def handle_answer(req, answer, session, text):
-    """
-    handle user answer for puzzle
-    """
+    """Handle user answer for puzzle."""
     cows, bulls = BullCows(puzzle=session.puzzle).check(to_int(text))
 
     if cows is None:
@@ -191,9 +165,7 @@ def handle_answer(req, answer, session, text):
 
 
 def dialog(req):
-    """
-    alice request handler
-    """
+    """Alice request handler."""
     answer = {"end_session": False}
 
     if req['session']['new']:

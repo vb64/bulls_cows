@@ -1,6 +1,5 @@
-# coding: utf-8
-"""
-Translate numbers to RU words.
+"""Translate numbers to RU words.
+
 Based on https://github.com/seriyps/ru_number_to_text
 """
 UNITS = (
@@ -29,9 +28,7 @@ MINUS = 'минус'
 
 
 def thousand(rest, sex):
-    """
-    Converts numbers from 19 to 999
-    """
+    """Convert numbers from 19 to 999."""
     prev = 0
     plural = 2
     name = []
@@ -54,7 +51,7 @@ def thousand(rest, sex):
             if isinstance(name_, tuple):
                 name_ = name_[0 if sex == 'm' else 1]
             name.append(name_)
-            if cur >= 2 and cur <= 4:
+            if cur >= 2 and cur <= 4:  # pylint: disable=chained-comparison
                 plural = 1
             elif cur == 1:
                 plural = 0
@@ -67,7 +64,8 @@ def thousand(rest, sex):
 
 
 def int2words(num, main_units=(('', '', ''), 'm'), zero_not=False):
-    """
+    """Convert to word.
+
     http://ru.wikipedia.org/wiki/Gettext#.D0.9C.D0.BD.D0.BE.D0.B6.D0.B5.D1.81.
     D1.82.D0.B2.D0.B5.D0.BD.D0.BD.D1.8B.D0.B5_.D1.87.D0.B8.D1.81.D0.BB.D0.B0_2
     """
@@ -96,7 +94,5 @@ def int2words(num, main_units=(('', '', ''), 'm'), zero_not=False):
 
 
 def int2female(number):
-    """
-    translate number to female words
-    """
+    """Translate number to female words."""
     return int2words(number, (('', '', ''), "f"))

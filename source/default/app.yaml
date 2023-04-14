@@ -1,3 +1,12 @@
+# https://cloud.google.com/appengine/docs/standard/reference/app-yaml?tab=python#scaling_elements
+runtime: python39
+instance_class: F1
+
+automatic_scaling:
+  target_cpu_utilization: 0.8
+  max_instances: 2
+  max_idle_instances: 1
+
 handlers:
 
 - url: /favicon\.ico
@@ -14,3 +23,6 @@ handlers:
   static_files: static/humans.txt
   upload: static/humans\.txt
   mime_type: text/plain
+
+- url: /.*
+  script: auto
