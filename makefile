@@ -41,7 +41,7 @@ flake8:
 
 pep257:
 	$(PEP257) $(DFLT)
-	$(FLAKE8) $(TESTS)/test
+	$(PEP257) $(TESTS)/test
 
 lint:
 	$(LINT) $(DFLT)

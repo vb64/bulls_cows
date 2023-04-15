@@ -1,61 +1,54 @@
-"""
-make test T=test_bull_cows
+"""Module bull_cows.py.
+
+make test T=test_default/test_bull_cows.py
 """
 from . import TestDefault
 
 
 class TestCaseBullCows(TestDefault):
-    """
-    bull_cows
-    """
+    """Test bull_cows."""
 
     def test_bull_cows(self):
-        """
-        bull_cows
-        """
+        """Function bull_cows."""
         from bull_cows import BullCows, PUZZLE_LENGTH
 
         quest = BullCows()
-        self.assertEqual(len(quest.puzzle), PUZZLE_LENGTH)
+        assert len(quest.puzzle) == PUZZLE_LENGTH
 
         quest = BullCows(puzzle='1234')
-        self.assertEqual(quest.puzzle, '1234')
+        assert quest.puzzle == '1234'
 
     def test_is_unique_chars(self):
-        """
-        bull_cows
-        """
+        """Unique chars test."""
         from bull_cows import is_unique_chars
 
-        self.assertTrue(is_unique_chars('1234'))
-        self.assertFalse(is_unique_chars('1233'))
-        self.assertFalse(is_unique_chars('3333'))
+        assert is_unique_chars('1234')
+        assert not is_unique_chars('1233')
+        assert not is_unique_chars('3333')
 
     def test_check(self):
-        """
-        BullCows.check
-        """
+        """Method BullCows.check."""
         from bull_cows import BullCows
 
         quest = BullCows(puzzle='1234')
 
         is_valid, _err_text = quest.check('123456')
-        self.assertEqual(is_valid, None)
+        assert is_valid is None
 
         is_valid, _err_text = quest.check('xxxx')
-        self.assertEqual(is_valid, None)
+        assert is_valid is None
 
         is_valid, _err_text = quest.check('1333')
-        self.assertEqual(is_valid, None)
+        assert is_valid is None
 
         cows, bulls = quest.check('5678')
-        self.assertEqual(cows, 0)
-        self.assertEqual(bulls, 0)
+        assert cows == 0
+        assert bulls == 0
 
         cows, bulls = quest.check('4321')
-        self.assertEqual(cows, 4)
-        self.assertEqual(bulls, 0)
+        assert cows == 4
+        assert bulls == 0
 
         cows, bulls = quest.check('1234')
-        self.assertEqual(cows, 0)
-        self.assertEqual(bulls, 4)
+        assert cows == 0
+        assert bulls == 4

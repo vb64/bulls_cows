@@ -1,15 +1,12 @@
 # coding: utf-8
-"""
-testing Alice code
-"""
+"""Testing Alice code."""
 from tester_alice_skill_flask import Skill
 from .. import TestDefault
 
 
 class TestAlice(TestDefault):
-    """
-    Alice skill 'bulls and cows'
-    """
+    """Alice skill 'bulls and cows'."""
+
     start_message = "Я загадала число"
     help_message = "Этот навык умеет играть в логическую игру быки и коровы."
     prompt_message = "Введи число из четырех разных цифр."
@@ -24,13 +21,12 @@ class TestAlice(TestDefault):
     creator_message = "которая научила меня этой игре"
 
     def setUp(self):
+        """Skill for tests."""
         super().setUp()
         self.skill = Skill(self.app, 'Your_Alice_Skill_ID', '/alice')
 
     def db_sessions(self, count):
-        """
-        new skill session
-        """
+        """New skill session."""
         from alice.models import SessionYA as Session
         db_state = [
           (Session, count),
