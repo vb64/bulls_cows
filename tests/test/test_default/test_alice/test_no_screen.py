@@ -10,7 +10,7 @@ class TestNoScreen(TestAlice):
     screen dialog without buttons
     """
     def setUp(self):
-        super(TestNoScreen, self).setUp()
+        super().setUp()
         self.alice = self.skill.new_session('1234567890', [])
         self.assertEqual(len(self.alice.buttons), 0)
 

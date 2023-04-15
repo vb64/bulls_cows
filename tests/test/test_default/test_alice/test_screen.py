@@ -11,7 +11,7 @@ class TestScreen(TestAlice):
     screen dialog with buttons
     """
     def setUp(self):
-        super(TestScreen, self).setUp()
+        super().setUp()
         self.alice = self.skill.new_session('1234567890', [Interface.Screen])
         self.assertEqual(len(self.alice.buttons), 2)
 

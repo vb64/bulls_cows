@@ -24,7 +24,7 @@ class TestAlice(TestDefault):
     creator_message = "которая научила меня этой игре"
 
     def setUp(self):
-        super(TestAlice, self).setUp()
+        super().setUp()
         self.skill = Skill(self.app, 'Your_Alice_Skill_ID', '/alice')
 
     def db_sessions(self, count):

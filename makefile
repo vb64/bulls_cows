@@ -45,7 +45,7 @@ pep257:
 
 lint:
 	$(LINT) $(DFLT)
-	$(FLAKE8) $(TESTS)/test
+	$(LINT) $(TESTS)/test
 
 run:
 	$(PYTHON) $(DFLT)/bull_cows.py imcheater
