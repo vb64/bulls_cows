@@ -1,5 +1,6 @@
 # coding: utf-8
-"""
+"""Alice dialog.
+
 make test T=test_default/test_alice/test_dialog.py
 """
 from . import TestAlice
