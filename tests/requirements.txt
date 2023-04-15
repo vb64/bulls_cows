@@ -1,9 +1,8 @@
-mock
+pep257
 flake8
 pylint
-coverage
-coveralls
-tester-gae
-tester_flask
-tester_alice_skill_flask
-tester_coverage
+pytest
+pytest-cov
+mock
+tester_flask==1.1
+tester_alice_skill_flask==1.1

@@ -1,7 +1,4 @@
-# coding: utf-8
-"""
-skill messages
-"""
+"""Skill messages."""
 import random
 
 # button labels
@@ -56,11 +53,11 @@ MENTIONS = [
 
 
 def reply(text):
-    """
-    return reply if text contain MENTIONS items
-    """
+    """Return reply if text contain MENTIONS items."""
     for items, answers, sounds in MENTIONS:
-        if all([any([True for word in words if word in text]) for words in items]):
+        if all([any(  # pylint: disable=use-a-generator
+          [True for word in words if word in text]
+        ) for words in items]):
             return (random.choice(answers), random.choice(sounds))
 
     return (None, None)

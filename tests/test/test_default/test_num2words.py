@@ -1,58 +1,37 @@
 # coding: utf-8
+"""Module num2words.
+
+make test T=test_num2words.py
 """
-make test T=test_num2words
-"""
-from num2words import int2words
-from . import TestCase
+from . import TestDefault
 
 
-class TestInt2words(TestCase):
-    """
-    num2words.int2words function
-    """
+class TestInt2words(TestDefault):
+    """Function num2words.int2words."""
+
     def test_units(self):
-        """
-        units
-        """
+        """Check units."""
+        from num2words import int2words
+
         self.assertEqual(int2words(0), 'ноль')
         self.assertEqual(int2words(1), 'один')
         self.assertEqual(int2words(9), 'девять')
 
-    def test_gender(self):
-        """
-        gender
-        """
         self.assertEqual(int2words(1000), 'одна тысяча')
         self.assertEqual(int2words(2000), 'две тысячи')
         self.assertEqual(int2words(1000000), 'один миллион')
         self.assertEqual(int2words(2000000), 'два миллиона')
 
-    def test_teens(self):
-        """
-        teens
-        """
         self.assertEqual(int2words(10), 'десять')
         self.assertEqual(int2words(11), 'одиннадцать')
         self.assertEqual(int2words(19), 'девятнадцать')
 
-    def test_tens(self):
-        """
-        tens
-        """
         self.assertEqual(int2words(20), 'двадцать')
         self.assertEqual(int2words(90), 'девяносто')
 
-    def test_hundreeds(self):
-        """
-        hundreeds
-        """
         self.assertEqual(int2words(100), 'сто')
         self.assertEqual(int2words(900), 'девятьсот')
 
-    def test_orders(self):
-        """
-        orders
-        """
         self.assertEqual(int2words(1000), 'одна тысяча')
         self.assertEqual(int2words(2000), 'две тысячи')
         self.assertEqual(int2words(5000), 'пять тысяч')
@@ -63,10 +42,6 @@ class TestInt2words(TestCase):
         self.assertEqual(int2words(2000000000), 'два миллиарда')
         self.assertEqual(int2words(5000000000), 'пять миллиардов')
 
-    def test_inter_oreders(self):
-        """
-        inter_oreders
-        """
         self.assertEqual(int2words(1100), 'одна тысяча сто')
         self.assertEqual(int2words(2001), 'две тысячи один')
         self.assertEqual(int2words(5011), 'пять тысяч одиннадцать')
@@ -86,6 +61,8 @@ class TestInt2words(TestCase):
         """
         main_units
         """
+        from num2words import int2words
+
         male_units = (('рубль', 'рубля', 'рублей'), 'm')
         female_units = (('копейка', 'копейки', 'копеек'), 'f')
 
@@ -107,4 +84,6 @@ class TestInt2words(TestCase):
         """
         negative
         """
+        from num2words import int2words
+
         self.assertEqual(int2words(-12345), "минус двенадцать тысяч триста сорок пять")
