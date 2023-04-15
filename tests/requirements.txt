@@ -3,6 +3,6 @@ flake8
 pylint
 pytest
 pytest-cov
-mock
+codacy-coverage
 tester_flask==1.1
 tester_alice_skill_flask==1.1
