@@ -52,3 +52,19 @@ class TestCaseBullCows(TestDefault):
         cows, bulls = quest.check('1234')
         assert cows == 0
         assert bulls == 4
+
+    def test_main(self):
+        """Function main."""
+        import bull_cows
+
+        saved = bull_cows.get_input
+        answers = ['1234', '']
+        bull_cows.get_input = lambda i: answers.pop()
+
+        bull_cows.main([], '1234')
+
+        answers = ['1234', '']
+        bull_cows.get_input = lambda i: answers.pop()
+        bull_cows.main(['xxx', 'imcheater'], '1234')
+
+        bull_cows.get_input = saved

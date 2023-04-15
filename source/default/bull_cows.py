@@ -70,6 +70,11 @@ class BullCows:
         return (cows, bulls)
 
 
+def get_input(prompt):  # pragma: no cover
+    """Return user input."""
+    return input(prompt)
+
+
 def main(argv, puzzle=None):
     """Standalone app."""
     quest = BullCows(puzzle=puzzle)
@@ -78,7 +83,7 @@ def main(argv, puzzle=None):
         print("my puzzle:", quest.puzzle)
 
     while bulls != PUZZLE_LENGTH:
-        cows, bulls = quest.check(input('enter 4 digits:'))
+        cows, bulls = quest.check(get_input('enter 4 digits:'))
         if cows is None:
             print('need {} different digits!'.format(PUZZLE_LENGTH))
         else:
