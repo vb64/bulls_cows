@@ -6,10 +6,8 @@ from tester_flask import TestFlask
 class TestCase(TestFlask):
     """Base class."""
 
-    def setUp(self):  # pylint: disable=arguments-differ
+    def setUp(self, app):
         """Use Flask app."""
-        from main import app
-
         TestFlask.setUp(self, app)
 
         self.gae_testbed = testbed.Testbed()

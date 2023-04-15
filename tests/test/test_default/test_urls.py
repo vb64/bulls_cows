@@ -2,10 +2,10 @@
 
 make test T=test_urls.py
 """
-from . import TestCase
+from . import TestDefault
 
 
-class TestCaseUrl(TestCase):
+class TestCaseUrl(TestDefault):
     """Common web endpoints."""
 
     def test_home(self):

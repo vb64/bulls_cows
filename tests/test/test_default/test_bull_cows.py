@@ -1,13 +1,14 @@
 """
 make test T=test_bull_cows
 """
-from . import TestCase
+from . import TestDefault
 
 
-class TestCaseBullCows(TestCase):
+class TestCaseBullCows(TestDefault):
     """
     bull_cows
     """
+
     def test_bull_cows(self):
         """
         bull_cows

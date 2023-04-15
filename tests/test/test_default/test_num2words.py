@@ -3,10 +3,10 @@
 
 make test T=test_num2words.py
 """
-from . import TestCase
+from . import TestDefault
 
 
-class TestInt2words(TestCase):
+class TestInt2words(TestDefault):
     """Function num2words.int2words."""
 
     def test_units(self):

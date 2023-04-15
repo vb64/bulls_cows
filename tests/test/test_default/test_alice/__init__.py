@@ -3,10 +3,10 @@
 testing Alice code
 """
 from tester_alice_skill_flask import Skill
-from .. import TestCase
+from .. import TestDefault
 
 
-class TestAlice(TestCase):
+class TestAlice(TestDefault):
     """
     Alice skill 'bulls and cows'
     """
