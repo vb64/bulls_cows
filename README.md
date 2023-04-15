@@ -29,7 +29,7 @@ make tests
 make deploy
 ```
 After successful deployment visit the URL https://Your-GAE-project-ID.appspot.com You should see something like this:
-```
+```bash
 Yandex Alice Bulls&Cows game lives here
 ```
 Then, you need Yandex account and registration at [Yandex.Dialogs](https://dialogs.yandex.ru). Create [new Alice skill](https://dialogs.yandex.ru/developer/) and set `Webhook URL` field to
