@@ -41,7 +41,7 @@ flake8:
 
 pep257:
 	$(PEP257) $(DFLT)
-	$(PEP257) $(TESTS)/test
+	$(PEP257) --match='.*\.py' $(TESTS)/test
 
 lint:
 	$(LINT) $(DFLT)

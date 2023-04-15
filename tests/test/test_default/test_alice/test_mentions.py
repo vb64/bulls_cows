@@ -1,23 +1,22 @@
 # coding: utf-8
-"""
-make test T=test_alice.test_mentions
+"""Creator mentions.
+
+make test T=test_default/test_alice/test_mentions.py
 """
 from . import TestAlice
 
 
 class TestMentions(TestAlice):
-    """
-    alice.mentions module
-    """
-    def test_reply(self):
-        """
-        alice.messages.reply
-        """
+    """Alice mentions module."""
+
+    @staticmethod
+    def test_reply():
+        """Alice messages.reply."""
         from alice.messages import reply
 
         relpy, _sound = reply("меня зовут юля богомолова.")
-        self.assertTrue(relpy)
+        assert relpy
         relpy, _sound = reply("привет юляка богомолова.")
-        self.assertTrue(relpy)
+        assert relpy
         relpy, _sound = reply("кто такая богомолова?")
-        self.assertFalse(relpy)
+        assert not relpy
