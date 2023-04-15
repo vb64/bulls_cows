@@ -1,6 +1,6 @@
 """Yandex.Alice skill dialog functions."""
-from ..bull_cows import BullCows, PUZZLE_LENGTH
-from ..num2words import int2words, int2female
+from bull_cows import BullCows, PUZZLE_LENGTH
+from num2words import int2words, int2female
 from .models import SessionYA as Session
 from .messages import (
   reply as reply_mention,
@@ -24,7 +24,7 @@ def remove_chars(text, chars):
 def normalize(text):
     """Remove whitespaces, punctuation, cast to lower case."""
     text = remove_chars(text, ',!?-')
-    return ' '.join(text.lower().split()).encode('utf8')
+    return ' '.join(text.lower().split())
 
 
 def add_buttons(req, answer, buttons):

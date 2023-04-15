@@ -28,8 +28,8 @@ def alice_webhook():
         "session": request.json['session'],
         "response": dialog(request.json),
       },
-      encoding='utf8',
-      ensure_ascii=False,
+      # encoding='utf8',
+      # ensure_ascii=False,
       indent=2
     )
 

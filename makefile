@@ -3,35 +3,49 @@
 ifeq ($(OS),Windows_NT)
 GCLOUD = $(LOCALAPPDATA)\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd
 PYTHON = venv/Scripts/python.exe
+PTEST = venv/Scripts/pytest.exe
+COVERAGE = venv/Scripts/coverage.exe
 else
 GCLOUD = gcloud
 PYTHON = ./venv/bin/python
+PTEST = ./venv/bin/pytest
+COVERAGE = ./venv/bin/coverage
 endif
 
 SOURCE = source
 TESTS = tests
 DFLT = $(SOURCE)/default
+
 PIP = $(PYTHON) -m pip install
 DEPLOY = $(GCLOUD) app deploy --project
 FLAKE8 = $(PYTHON) -m flake8
 LINT = $(PYTHON) -m pylint
 PEP257 = $(PYTHON) -m pep257
+PYTEST = $(PTEST) --cov=$(SOURCE) --cov-report term:skip-covered
 
 PRJ = bulls-cows-240515
 VERSION = py3
 
 all: run
 
+test:
+	$(PTEST) -s $(TESTS)/test/$(T)
+
 tests: flake8 pep257 lint
+	$(PYTEST) --durations=5 $(TESTS)
+	$(COVERAGE) html --skip-covered
 
 flake8:
 	$(FLAKE8) $(DFLT)
+	$(FLAKE8) $(TESTS)/test
 
 pep257:
 	$(PEP257) $(DFLT)
+#	$(FLAKE8) $(TESTS)/test
 
 lint:
 	$(LINT) $(DFLT)
+	$(FLAKE8) $(TESTS)/test
 
 run:
 	$(PYTHON) $(DFLT)/bull_cows.py imcheater

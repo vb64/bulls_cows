@@ -1,26 +1,21 @@
 # coding: utf-8
 """
-make test T=test_alice.test_dialog
+make test T=test_alice/test_dialog.py
 """
 from . import TestAlice
 
 
 class TestDialog(TestAlice):
-    """
-    functions from alice.dialog module
-    """
+    """Check functions from alice.dialog module."""
+
     def test_to_int(self):
-        """
-        to_int
-        """
+        """Function to_int."""
         from alice.dialog import to_int
         self.assertEqual(to_int('12 37.'), '1237')
         self.assertEqual(to_int('55,666'), '55666')
 
     def test_dialog(self):
-        """
-        dialog
-        """
+        """Check dialog."""
         from alice.dialog import dialog
 
         req = {
@@ -34,9 +29,7 @@ class TestDialog(TestAlice):
         self.assertIn(self.err_message, answer['text'])
 
     def test_command(self):
-        """
-        original_utterance and command
-        """
+        """Check original_utterance and command."""
         from alice.dialog import dialog
         from alice.models import SessionYA as Session
 

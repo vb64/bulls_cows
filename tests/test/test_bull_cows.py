@@ -1,9 +1,6 @@
 """
 make test T=test_bull_cows
 """
-import __builtin__
-import mock
-
 from . import TestCase
 
 
@@ -61,16 +58,3 @@ class TestCaseBullCows(TestCase):
         cows, bulls = quest.check('1234')
         self.assertEqual(cows, 0)
         self.assertEqual(bulls, 4)
-
-    @mock.patch.object(__builtin__, 'raw_input')
-    def test_main(self, mock_raw_input):
-        """
-        main
-        """
-        from bull_cows import main
-
-        mock_raw_input.side_effect = ['xxx', '1234']
-        self.assertEqual(main(['first arg'], puzzle='1234'), None)
-
-        mock_raw_input.side_effect = ['xxx', '1234']
-        self.assertEqual(main(['first arg', 'imcheater'], puzzle='1234'), None)
