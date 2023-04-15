@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-make test T=test_alice/test_dialog.py
+make test T=test_default/test_alice/test_dialog.py
 """
 from . import TestAlice
 
@@ -8,11 +8,13 @@ from . import TestAlice
 class TestDialog(TestAlice):
     """Check functions from alice.dialog module."""
 
-    def test_to_int(self):
+    @staticmethod
+    def test_to_int():
         """Function to_int."""
         from alice.dialog import to_int
-        self.assertEqual(to_int('12 37.'), '1237')
-        self.assertEqual(to_int('55,666'), '55666')
+
+        assert to_int('12 37.') == '1237'
+        assert to_int('55,666') == '55666'
 
     def test_dialog(self):
         """Check dialog."""
@@ -25,8 +27,8 @@ class TestDialog(TestAlice):
           },
         }
         answer = dialog(req)
-        self.assertEqual(answer['end_session'], True)
-        self.assertIn(self.err_message, answer['text'])
+        assert answer['end_session']
+        assert self.err_message in answer['text']
 
     def test_command(self):
         """Check original_utterance and command."""
@@ -52,4 +54,4 @@ class TestDialog(TestAlice):
         }
 
         answer = dialog(req)
-        self.assertEqual(answer['end_session'], False)
+        assert not answer['end_session']

@@ -24,7 +24,7 @@ PEP257 = $(PYTHON) -m pep257
 PYTEST = $(PTEST) --cov=$(SOURCE) --cov-report term:skip-covered
 
 PRJ = bulls-cows-240515
-VERSION = py3
+VERSION = py3-03
 
 all: run
 

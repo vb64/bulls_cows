@@ -1,4 +1,5 @@
 """Root class for testing."""
+# https://cloud.google.com/appengine/docs/standard/python3/reference/services/bundled/google/appengine/ext/testbed/Testbed
 from google.appengine.ext import testbed
 from tester_flask import TestFlask
 
@@ -12,6 +13,7 @@ class TestCase(TestFlask):
 
         self.gae_testbed = testbed.Testbed()
         self.gae_testbed.activate()
+        # self.gae_testbed.setup_env()
         self.gae_testbed.init_datastore_v3_stub()
         self.gae_testbed.init_memcache_stub()
 

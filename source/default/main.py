@@ -1,10 +1,17 @@
 """Default GAE service."""
+import os
 import logging
 import json
 from flask import Flask, request
+from google.appengine.api import wrap_wsgi_app
 from alice.dialog import dialog
 
 app = Flask(__name__)
+
+# https://cloud.google.com/appengine/docs/standard/testing-and-deploying-your-app?tab=python
+if os.getenv('GAE_ENV', '').startswith('standard'):  # pragma: no cover
+    # Production in the standard environment
+    app.wsgi_app = wrap_wsgi_app(app.wsgi_app)
 
 
 @app.route('/')

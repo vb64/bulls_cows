@@ -1,11 +1,16 @@
 # https://cloud.google.com/appengine/docs/standard/reference/app-yaml?tab=python#scaling_elements
 runtime: python39
+app_engine_apis: true
 instance_class: F1
 
 automatic_scaling:
   target_cpu_utilization: 0.8
   max_instances: 2
   max_idle_instances: 1
+
+env_variables:
+  MEMCACHE_USE_CROSS_COMPATIBLE_PROTOCOL: 'True'
+  NDB_USE_CROSS_COMPATIBLE_PICKLE_PROTOCOL: 'True'
 
 handlers:
 
