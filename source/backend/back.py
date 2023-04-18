@@ -1,4 +1,5 @@
 """Backend GAE service."""
+import os
 from datetime import datetime, timedelta
 import logging
 from flask import Flask
@@ -10,13 +11,15 @@ PARTS = 3
 DAYS_OLD = 30
 
 app = Flask(__name__)
-app.wsgi_app = wrap_wsgi_app(app.wsgi_app)
+if os.getenv('GAE_ENV', '').startswith('standard'):  # pragma: no cover
+    # Production in the standard environment
+    app.wsgi_app = wrap_wsgi_app(app.wsgi_app)
 
 
 class SessionYA(ndb.Model):
     """Key.id: alice session_id."""
 
-    last_attempt = ndb.DateTimeProperty(auto_now=True)
+    last_attempt = ndb.DateTimeProperty()
 
 
 @app.route('/')
