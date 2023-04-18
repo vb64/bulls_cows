@@ -26,7 +26,7 @@ PYTEST = $(PTEST) --cov=$(SOURCE) --cov-report term:skip-covered
 
 PRJ = bulls-cows-240515
 VERSION = py3
-VERSION_BACK = py3
+VERSION_BACK = py3b
 
 all: run
 
