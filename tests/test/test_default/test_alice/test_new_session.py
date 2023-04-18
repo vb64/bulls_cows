@@ -1,7 +1,7 @@
 # coding: utf-8
 """New Alice session.
 
-make test T=test_alice/test_new_session.py
+make test T=test_default/test_alice/test_new_session.py
 """
 from tester_alice_skill_flask import Interface
 

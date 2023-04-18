@@ -15,6 +15,7 @@ endif
 SOURCE = source
 TESTS = tests
 DFLT = $(SOURCE)/default
+BACK = $(SOURCE)/backend
 
 PIP = $(PYTHON) -m pip install
 DEPLOY = $(GCLOUD) app deploy --project
@@ -25,6 +26,7 @@ PYTEST = $(PTEST) --cov=$(SOURCE) --cov-report term:skip-covered
 
 PRJ = bulls-cows-240515
 VERSION = py3
+VERSION_BACK = py3b
 
 all: run
 
@@ -37,14 +39,17 @@ tests: flake8 pep257 lint
 
 flake8:
 	$(FLAKE8) $(DFLT)
+	$(FLAKE8) $(BACK)
 	$(FLAKE8) $(TESTS)/test
 
 pep257:
 	$(PEP257) $(DFLT)
+	$(PEP257) $(BACK)
 	$(PEP257) --match='.*\.py' $(TESTS)/test
 
 lint:
 	$(LINT) $(DFLT)
+	$(LINT) $(BACK)
 	$(LINT) $(TESTS)/test
 
 run:
@@ -52,6 +57,9 @@ run:
 
 deploy:
 	$(DEPLOY) $(PRJ) --version $(VERSION) $(DFLT)/app.yaml
+
+deployback:
+	$(DEPLOY) $(PRJ) --version $(VERSION_BACK) $(BACK)/app.yaml
 
 cron:
 	$(DEPLOY) $(PRJ) $(SOURCE)/cron.yaml
