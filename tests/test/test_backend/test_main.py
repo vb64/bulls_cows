@@ -10,5 +10,5 @@ class TestCaseUrl(TestBackend):
 
     def test_main(self):
         """Function main."""
-        from main import main
+        from back import main
         assert 'Deleted: 0' in main()

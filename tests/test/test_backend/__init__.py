@@ -7,5 +7,5 @@ class TestBackend(TestCase):
 
     def setUp(self):  # pylint: disable=arguments-differ
         """Use backend app."""
-        from main import app
+        from back import app
         TestCase.setUp(self, app)
