@@ -6,7 +6,7 @@ from google.appengine.ext import ndb
 from google.appengine.api import wrap_wsgi_app
 
 PORTION = 500
-PARTS = 30
+PARTS = 3
 DAYS_OLD = 30
 
 app = Flask(__name__)
